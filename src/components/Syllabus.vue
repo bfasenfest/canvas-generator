@@ -44,12 +44,12 @@
           <button type="button" name="button" class="uk-button-small uk-button-primary" @click="updateSwitch">{{userInput.uploadSwitchText}}</button> <br> <br>
 
           <!-- These forms upload the file or url to Amazon S3. More detail in the onFormSubmit method. -->
-          <form name="file-form" v-show="this.userInput.isFile" class="your-form-class" v-on:submit.prevent="onFormSubmit('image', ta)">
-            <input name="image" id="image-file" type="file"> <br>
+          <form name="file-form" v-show="this.userInput.isFile" class="your-form-class" v-on:submit.prevent="onFormSubmit('image', ta, '#image-file2')">
+            <input name="image" id="image-file2" type="file"> <br>
             <input type="submit" class="uk-button uk-button-primary" value="Submit Image">
           </form>
-          <form v-show="!this.userInput.isFile" class="your-form-class" v-on:submit.prevent="onFormSubmit('url', ta)">
-            <input name="imageUrl" id="image-url" type="text" class="uk-input"> <br> <br>
+          <form v-show="!this.userInput.isFile" class="your-form-class" v-on:submit.prevent="onFormSubmit('url', ta, '#image-url2')">
+            <input name="imageUrl" id="image-url2" type="text" class="uk-input"> <br> <br>
             <input type="submit" class="uk-button uk-button-primary" value="Submit Image">
           </form>
         </div>
@@ -72,7 +72,9 @@
 
               <!-- must have weeklyIconImg class for responsiveness -->
               <!-- landscape images work best. 350x200 seems ideal -->
-              <img :src="prof.imgSrc" class="weeklyIconImg" />
+              <div class="STV1_BlueBG">
+                <img :src="prof.imgSrc" class="STV1_SyllabusPhoto" />
+              </div>
 
               <p>Instructor:</p>
               <p>{{prof.name}} (<a :href="'mailto:'+prof.email">{{prof.email}}</a>) <br /> Office Hours: <span v-html="profInfo"></span></p>
@@ -86,7 +88,10 @@
 
               <!-- must have weeklyIconImg class for responsiveness -->
               <!-- landscape images work best. 350x200 seems ideal -->
-              <img :src="ta.imgSrc" class="weeklyIconImg" />
+              <div class="STV1_BlueBG">
+                <img :src="ta.imgSrc" class="STV1_SyllabusPhoto" />
+              </div>
+
 
               <p>Teaching Assistant:</p>
               <p>{{ta.name}} (<a :href="'mailto:'+ta.email">{{ta.email}}</a>) <br /> Office Hours: <span v-html="taInfo"></span></p>
@@ -302,13 +307,13 @@ export default {
         name: "Professor Name",
         email: "professor@sipa.columbia.edu",
         hours: "Monday 3:00-6:00 pm (IAB Room 1434)",
-        imgSrc: "http://via.placeholder.com/350x150"
+        imgSrc: "http://via.placeholder.com/200x200"
       },
       ta: {
         name: "TA Name",
         email: "ta@sipa.columbia.edu",
         hours: "Tuesday 1:00-2:30 pm (Publique, IAB 6th floor)",
-        imgSrc:"http://via.placeholder.com/350x150"
+        imgSrc:"http://via.placeholder.com/200x200"
       },
       pEditable: true,
       tEditable: true,
@@ -362,23 +367,23 @@ export default {
       this.userInput.isFile = !this.userInput.isFile;
       this.userInput.uploadSwitchText = this.userInput.isFile ? "Click to Upload Image from URL" : "Click to Upload Image from Computer"
     },
-    onFormSubmit (type, obj, ev){
+    onFormSubmit (type, obj, id = (type == 'url') ? '#image-url' : '#image-file' , ev){
       var formData = new FormData();
 
       if (type == 'url'){
         console.log('uploading url...')
-        var imageurl = document.querySelector('#image-url'); // Gets form data in html
+        var imageurl = document.querySelector(id); // Gets form data in html
         formData.append("imageUrl", imageurl.value);  // Adds api header to tell server that it is a url
       }
       else {
         console.log('uploading file...')
-        var imagefile = document.querySelector('#image-file');
+        var imagefile = document.querySelector(id);
         formData.append("image", imagefile.files[0]); // Adds api header to tell server that it is a file
       }
 
       // More api headers to tell the server the dimensions to crop
-      formData.append('imageWidth', 350)
-      formData.append('imageHeight', 150)
+      formData.append('imageWidth', 200)
+      formData.append('imageHeight', 200)
 
       // Send post request to Amazon server using vue-resource with form data
       this.$http.post('http://ec2-34-229-16-148.compute-1.amazonaws.com:3000/image',formData).then( response => {

@@ -200,6 +200,26 @@ background: url('https://sc3online.com/SIPA/btsSpring2016.jpg') repeat-x center 
 		height: 110px;
 	}
 
+  .CU01 {
+    background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/STV1_BannerCU.jpg') no-repeat center center;
+		background-color: #92aebf;
+  }
+
+  .BB01 {
+    background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/STV1_Banner.jpg') no-repeat center center;
+		background-color: #92aebf;
+  }
+
+  .BB02 {
+    background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/STV1_Banner.jpg') no-repeat center center;
+		background-color: #92aebf;
+  }
+
+  .BB03 {
+    background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/STV1_Banner.jpg') no-repeat center center;
+		background-color: #92aebf;
+  }
+
   .SSW {
 		background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/STV1_BannerSSW.jpg') no-repeat center center;
 		background-color: #92aebf;
@@ -218,6 +238,15 @@ background: url('https://sc3online.com/SIPA/btsSpring2016.jpg') repeat-x center 
 		padding: 10px 0 0 32px;
 		margin: 0;
 	}
+
+  .STV1_Banner p.logo{
+    padding: 0;
+    margin: 0;
+  }
+
+  .STV1_Banner p.logo:before{
+    content : url(https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/SipaLogo2.png);
+  }
 
 	.STV1_Banner p.STV1_CourseCode {
 		font-size: 18px;
@@ -386,10 +415,25 @@ background: url('https://sc3online.com/SIPA/btsSpring2016.jpg') repeat-x center 
 		padding: 0 0 5px 0;
 	}
 
+  .STV1_BlueBG {
+    background-color: #008ee2;
+    min-height: 50px;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .STV1_SyllabusPhoto {
+    /* reserved */
+  }
+
 	/* OVERRIDING CANVAS DEFAULT STYLES */
 
 		.ig-published:not(.student-view) .ig-type-icon {
+      color: #FFF;
 			background-color: #008EE2;
+      height: 40px;
+      width: 40px;
+      border-radius: 40px;
 		}
 
 		.ig-list .ig-row.ig-published:not(.student-view):before {
