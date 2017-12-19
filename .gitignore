@@ -4,3 +4,7 @@ dist/
 npm-debug.log
 
 .tern-project
+
+static/files/CanvasCourseBuilderGuide.pdf
+
+static/files/CourseBuilderDemo.mp4
