@@ -7,8 +7,8 @@
                <p>&nbsp;</p>
                <img class="columbia-logo" src="https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/columbia-logo-white.png" />
                <h1 class="uk-heading"><span class="uk-margin-small-right" uk-icon="icon: cog; ratio: 2.5"></span> CANVAS COURSE BUILDER</h1>
-               <!-- <button class="uk-button uk-button-primary uk-button-large" @click="getStarted">Get Started</button> -->
-               <button class="uk-button uk-button-primary uk-button-large" @click="dialogFormVisible = true">Get Started</button>
+               <button class="uk-button uk-button-primary uk-button-large" @click="getStarted">Get Started</button>
+               <!-- <button class="uk-button uk-button-primary uk-button-large" @click="dialogFormVisible = true">Get Started</button> -->
             </div>
         </div>
     </div>

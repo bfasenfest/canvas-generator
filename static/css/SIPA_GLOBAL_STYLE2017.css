@@ -230,6 +230,13 @@ background: url('https://sc3online.com/SIPA/btsSpring2016.jpg') repeat-x center 
     background-color: #92aebf;
   }
 
+  .MM {
+    background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/mailmanschool-bk-1200x200.jpg') no-repeat center center;
+    background-color: #92aebf;
+  }
+
+
+
 	.STV1_Banner  p{
 		font-size: 21px;
 		font-weight: 200;
@@ -265,6 +272,11 @@ background: url('https://sc3online.com/SIPA/btsSpring2016.jpg') repeat-x center 
 
   .SSW_Slim {
 		background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/STV1_SlimBannerSSW.jpg') no-repeat center center;
+		background-color: #92aebf;
+	}
+
+  .MM_Slim {
+		background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/mailmanschool-bk-1200x60.jpg') no-repeat center center;
 		background-color: #92aebf;
 	}
 

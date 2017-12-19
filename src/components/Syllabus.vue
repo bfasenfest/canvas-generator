@@ -59,7 +59,7 @@
     <!-- Where the canvas code is stored -->
     <div id="canvas-code" class='show-content user_content clearfix enhanced ic-Layout-contentMain'>
       <div class="STV1_SlimBanner">
-        <p>{{userInput.title}}</p>
+        <p>{{userInput.title.toUpperCase()}}</p>
       </div>
 
       <!-- Professors & TAs -->

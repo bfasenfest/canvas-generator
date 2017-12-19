@@ -58,5 +58,5 @@ export default new Vuex.Store({
     defaults,
     theme
   },
-  // plugins: [createPersistedState()]
+  plugins: [createPersistedState()]
 })

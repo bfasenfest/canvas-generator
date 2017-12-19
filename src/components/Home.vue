@@ -60,7 +60,7 @@
               <option v-for="theme in $store.getters.getThemeOptions" :value="theme">{{theme.option}}</option>
             </select>
           </label>
-          <label>
+          <!-- <label>
             Logo Image:
             <select style="display: inline-block; width:150px" v-model="theme.logo" name="Choose Logo" class="uk-select">
               <option selected disabled>Choose Logo</option>
@@ -68,7 +68,7 @@
               <option :value="this.$store.state.imageServer + 'SSW_logo.png'">SSW</option>
               <option :value="this.$store.state.imageServer + 'Mailman_logo.png'">Mailman</option>
             </select>
-          </label>
+          </label> -->
           <!-- <textarea v-show="!this.userInput.isVideo" v-model="userInput.image" class="code-input uk-input" rows="1" cols="50"></textarea> -->
     		</li>
     	</ul>
