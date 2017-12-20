@@ -58,7 +58,7 @@
 
     <!-- Where the canvas code is stored -->
     <div id="canvas-code" class='show-content user_content clearfix enhanced ic-Layout-contentMain'>
-      <div class="STV1_SlimBanner">
+      <div :class="['STV1_SlimBanner', this.$store.getters.getTheme.slim]">
         <p>{{userInput.title.toUpperCase()}}</p>
       </div>
 
