@@ -220,6 +220,11 @@ background: url('https://sc3online.com/SIPA/btsSpring2016.jpg') repeat-x center 
 		background-color: #92aebf;
   }
 
+  .SIPA {
+    background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/STV1_Banner.jpg') no-repeat center center;
+    background-color: #008ee2;
+  }
+
   .SSW {
 		background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/STV1_BannerSSW.jpg') no-repeat center center;
 		background-color: #92aebf;
@@ -268,6 +273,16 @@ background: url('https://sc3online.com/SIPA/btsSpring2016.jpg') repeat-x center 
 		background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/STV1_BannerSlim.jpg') no-repeat center center;
 		background-color: #008ee2;
 		height: 60px;
+	}
+
+	.SIPA_Slim {
+		background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/STV1_BannerSlim.jpg') no-repeat center center;
+		background-color: #008ee2;
+	}
+
+	.CU01_Slim {
+		background: url('https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/STV1_BannerCUSlim.jpg') no-repeat center center;
+		background-color: #92aebf;
 	}
 
   .SSW_Slim {

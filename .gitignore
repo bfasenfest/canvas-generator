@@ -8,3 +8,5 @@ npm-debug.log
 static/files/CanvasCourseBuilderGuide.pdf
 
 static/files/CourseBuilderDemo.mp4
+
+.vscode/settings.json
