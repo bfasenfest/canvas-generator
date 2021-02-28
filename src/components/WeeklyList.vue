@@ -378,7 +378,7 @@ export default {
       formData.append("imageHeight", 150)
 
       // Send post request to Amazon server using vue-resource with form data
-      this.$http.post("http://ec2-34-229-16-148.compute-1.amazonaws.com:3000/image", formData).then(
+      this.$http.post("https://images.columbiacoursebuilder.org/image", formData).then(
         response => {
           console.log("success")
           let imageData = JSON.parse(response.bodyText)
