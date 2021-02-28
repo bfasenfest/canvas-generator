@@ -90,6 +90,8 @@
 <script>
 import saveState from "vue-save-state"
 import { quillEditor } from "vue-quill-editor"
+import mutations from "../store/mutations"
+
 
 export default {
   name: "Home",
@@ -117,7 +119,7 @@ export default {
       }
     }
   },
-  mixins: [saveState],
+  mixins: [saveState, mutations],
   computed: {},
   methods: {
     getStarted() {

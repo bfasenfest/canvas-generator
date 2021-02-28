@@ -13,7 +13,8 @@ import Snotify from 'vue-snotify'
 import 'vue-snotify/styles/material.css'
 import VueTippy from 'vue-tippy'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css' // Use this OR theme chalk in index.html
+import 'element-ui/lib/theme-chalk/index.css'; // Use this OR theme chalk in index.html
+ // Use this OR theme chalk in index.html
 import locale from 'element-ui/lib/locale/lang/en'
 // import CKEditor from '@ckeditor/ckeditor5-vue';
 
