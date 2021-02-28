@@ -418,7 +418,8 @@ export default {
         response => {
           console.log("success")
           let imageData = JSON.parse(response.bodyText)
-          obj.imgSrc = imageData.imageUrls[0] // Change requisite weekly activity image src to the hosted file
+          this.updateUser(this.info[this.selected.list][this.selected.index], 'imgSrc', imageData.imageUrls[0] )
+          // obj.imgSrc = imageData.imageUrls[0] // Change requisite weekly activity image src to the hosted file
         },
         response => {
           console.log(response)
