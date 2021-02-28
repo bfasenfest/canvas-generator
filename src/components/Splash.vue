@@ -5,12 +5,12 @@
             <div class="uk-background-cover uk-height-large uk-panel uk-text-center" style="background-image: url(static/images/cover01.jpg);">
                <p>&nbsp;</p>
                <p>&nbsp;</p>
-               <img class="columbia-logo" src="https://sipa-canvas.s3.us-east-2.amazonaws.com/canvas-images/CCB_logo_istari.png" />
+               <img class="columbia-logo" src="https://s3.amazonaws.com/cu-coursebuilder/images/CCB_logo.jpg" />
                <br><br>
                <router-link class="router" to="/guide">
-               <el-button type="plain" size="large" style="background-color: #1F1347; color: #FFFFFF; display: inline-block; margin-left: 15px; margin-right: 20px;">View Guide</el-button>
+               <el-button type="primary" size="large" style="display: inline-block; margin-left: 15px; margin-right: 20px;">View Guide</el-button>
                </router-link>
-               <el-button type="plain" size="large" style="background-color: #1F1347; color: #FFFFFF; display: inline-block; margin-right: 20px;" @click="dialogFormVisible = true">Get Started</el-button>
+               <el-button type="primary" size="large" style="display: inline-block; margin-right: 20px;" @click="dialogFormVisible = true">Get Started</el-button>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
             </el-form-item>
             <el-form-item label="Organization" prop="theme">
               <select style="display: inline-block; width:150px" v-model="ruleForm.theme" name="Choose Banner" class="uk-select">
-                <option v-for="theme in $store.getters.getThemeOptions" :value="theme">{{theme.option}}</option>
+                <option v-for="theme in $store.getters.getThemeOptions" :value="theme" :key="theme.option">{{theme.option}}</option>
               </select>
             </el-form-item>
             <!-- <el-form-item label="Course Type" prop="classType">
@@ -58,40 +58,37 @@
 
     <div class="uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
         <div>
-            <div class="uk-background-primary uk-padding uk-light uk-height-medium">
+            <div class="uk-padding uk-light uk-height-medium" :style="{background: theme.primary}">
             	<h1>1</h1>
             	<h5>DESIGN IN REAL TIME</h5>
             	<p>This website allows Columbia Professors and TA’s to quickly build Canvas class websites using our pre-built course template. </p>
             </div>
         </div>
         <div>
-            <div class="uk-background-primary uk-padding uk-light uk-height-medium">
+            <div class="uk-padding uk-light uk-height-medium" :style="{background: theme.primary}">
             	<h1>2</h1>
             	<h5>EXPORT CODE</h5>
             	<p>Once each page is built, you can copy the code for the page template.</p>
             </div>
         </div>
         <div>
-            <div class="uk-background-primary uk-padding uk-light uk-height-medium">
+            <div class="uk-padding uk-light uk-height-medium" :style="{background: theme.primary}">
             	<h1>3</h1>
             	<h5>INSERT INTO CANVAS</h5>
             	<p>And insert it into the canvas Page! See <router-link class="router" to="/guide">user guide</router-link> for details.</p>
             </div>
         </div>
     </div>
-
     <div class="uk-grid-collapse uk-child-width-expand@s uk-text-left" uk-grid>
         <div class="uk-background-muted uk-padding">
-    		<p>Copyright © Columbia University. All rights reserved.</p>
-       	</div>
+        <p>Copyright © Columbia University. All rights reserved.</p>
+         </div>
     </div>
   </div>
 </template>
 
 <script>
-import { EventBus } from "../bus"
 import saveState from "vue-save-state"
-import mutations from "../store/mutations"
 import { quillEditor } from "vue-quill-editor"
 
 export default {
@@ -120,7 +117,7 @@ export default {
       }
     }
   },
-  mixins: [saveState, mutations],
+  mixins: [saveState],
   computed: {},
   methods: {
     getStarted() {
