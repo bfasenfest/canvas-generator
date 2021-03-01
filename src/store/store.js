@@ -24,5 +24,9 @@ export default new Vuex.Store({
     theme,
     cases
   },
+<<<<<<< Updated upstream
   plugins: [] // [createPersistedState()]
+=======
+  // plugins: [createPersistedState()]
+>>>>>>> Stashed changes
 });

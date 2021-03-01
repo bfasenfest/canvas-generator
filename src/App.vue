@@ -16,10 +16,16 @@
             <li><router-link class="router" to="/syllabus">Syllabus</router-link></li>
             <li v-show="info.classType.option == 'Executive Training'"><router-link class="router"  to="/program">Program Overview</router-link></li>
             <li><router-link class="router" to="/studentlist">Students List</router-link></li>
+            <li><router-link class="router" to="/newstudentlist">New Students List</router-link></li>
             <li><router-link class="router" to="/student">Student</router-link></li>
+<<<<<<< Updated upstream
             <li><router-link class="router" to="/activities">Activities</router-link></li>
             <li><router-link class="router" to="/weekly">Individual Activity</router-link></li>
             <li v-show="info.useZoom"><router-link class="router"  to="/zoom">Zoom</router-link></li>
+=======
+            <li><router-link class="router" to="/newstudent">New Student</router-link></li>            
+            <!-- <li v-show="info.useZoom"><router-link class="router"  to="/zoom">Zoom</router-link></li> -->
+>>>>>>> Stashed changes
             <li><router-link class="router" to="/export">Export</router-link></li>
           </ul>
       </el-col>

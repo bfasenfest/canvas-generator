@@ -14,10 +14,20 @@
 
 import Vue from 'vue'
 import ProfessorTaSlot from './ProfessorTaSlot.vue'
+<<<<<<< Updated upstream
 
 export default {
   components: {
     ProfessorTaSlot
+=======
+import CaseSlot from './CaseSlot.vue'
+import StudentSlot from './StudentSlot.vue'
+import slotMixin from '../mixins/slot-mixin.js'
+
+export default {
+  components: {
+    ProfessorTaSlot, CaseSlot, StudentSlot
+>>>>>>> Stashed changes
   },
   name: "ListSlot",
   props: [ "sid", "slotData", "slotItem", "width" ],

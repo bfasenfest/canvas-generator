@@ -269,8 +269,81 @@ export default {
               width: 8,
               type: "name-value-slot",
               getter: {
+<<<<<<< Updated upstream
                 value: "info.startDate"
               },
+=======
+                items: this.getSelectedWeekPropGetter('cases')
+              }
+            }
+          ]
+        },       
+        activityListIntro: {
+          id: 12,
+          name:"Activity Intro",
+          type:"activity-list-intro",
+          pages: '*',
+          icon: "picture",                    
+          array:[
+            {
+              type: "title-slot",
+              data: {
+                type: 'h3',
+                title: 'ACTIVITIES'
+              },
+              classes: ['ic-image-text-combo__text']
+            },
+            {
+              type: "spacer-slot",
+              data: {
+                useHR: true,
+              }
+            },
+            {
+              type: "content-slot",
+              data: {
+                content: "Welcome to the activities page! Below you'll find an overview of all the sessions in this course, each covering a distinct topic. Clicking on a session will take you to a page where you can review the activities related to that session."
+              },
+              styles: {
+              }
+            },
+            {
+              type: "spacer-slot",
+              data: {
+                useHR: true,
+              }
+            }
+        ]
+        },
+        studentList: {
+          id: 13,
+          name: "Student List",
+          type: 'student-list',
+          pages: '*',
+          icon: "picture",                    
+          array: [
+            {
+              type: "list-slot",
+              width: 12,
+              data: {
+                component: "student-slot",
+              },
+              getter: {
+                items: 'info.students'
+              }
+            }
+          ]
+        },         
+        testCol:{
+          id: 100,
+          name: "Test Col",
+          type: 'test',
+          pages: '*',
+          icon: 'picture',
+          array: [
+            {
+              type: "name-value-slot",
+>>>>>>> Stashed changes
               data: {
                 name: "Class",
                 type: 'date',
