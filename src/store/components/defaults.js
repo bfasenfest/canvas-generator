@@ -11,6 +11,7 @@ export default {
       semester: "U6411 // SPRING 2020",
       isBlended: true,
       useZoom: true,
+      useStudents: false,
       zoomLink: "http://www.zoom.us",
 
       //TIME INFO

@@ -13,8 +13,8 @@
             <li><router-link class="router" to="/home">Home</router-link></li>
             <li><router-link class="router" to="/syllabus">Syllabus</router-link></li>
             <li v-show="info.classType.option == 'Executive Training'"><router-link class="router"  to="/program">Program Overview</router-link></li>
-            <li><router-link class="router" to="/studentlist">Students List</router-link></li>
-            <li><router-link class="router" to="/student">Student</router-link></li>
+            <li v-show="info.useStudents"><router-link class="router" to="/studentlist">Students List</router-link></li>
+            <li v-show="info.useStudents"><router-link class="router" to="/student" >Student</router-link></li>
             <li><router-link class="router" to="/activities">Activities</router-link></li>
             <li><router-link class="router" to="/weekly">Individual Activity</router-link></li>
             <li v-show="info.useZoom"><router-link class="router"  to="/zoom">Zoom</router-link></li>
@@ -121,7 +121,7 @@
           </el-switch>
         </p> -->
          <p>
-          <label for="select" style="min-width: 110px">Use Zoom</label>
+          <label for="select" style="min-width: 150px">Use Zoom</label>
           <el-switch
             v-model="info.useZoom"
             @input="updateProp('useZoom', $event)"
@@ -130,7 +130,16 @@
           </el-switch>
         </p>
         <p>
-          <label for="select" style="min-width: 110px">Help Tooltips</label>
+          <label for="select" style="min-width: 150px">Use Student Pages</label>
+          <el-switch
+            v-model="info.useStudents"
+            @input="updateProp('useStudents', $event)"
+            active-color="#13ce66"
+            inactive-color="#ff4949">
+          </el-switch>
+        </p>
+        <p>
+          <label for="select" style="min-width: 150px">Help Tooltips</label>
           <el-switch
             v-model="info.usePops"
             @input="updateProp('usePops', $event)"

@@ -207,22 +207,31 @@ export default {
 
           zip.file("wiki_content/activities.html", headings.list + this.$refs.list.returnCode("list-code") + footer)
 
-          zip.file(
-            "wiki_content/students.html",
-            headings.studentList + this.$refs.studentsList.returnCode("students-list-code") + footer
-          )
+          
+          let weekly_redirect_url = '<lticm:property name="url">' + this.info.url + "pages/activities</lticm:property>"
+          let zoom_redirect_url = '<lticm:property name="url">' + this.info.url + "pages/zoom</lticm:property>"
+          let student_list_redirect_url = '<lticm:property name="url">' + this.info.url + "pages/students</lticm:property>"
 
           if (this.info.useZoom) {
             zip.file("wiki_content/zoom.html", headings.zoom + this.$refs.zoom.returnCode("zoom-code") + footer)
           }
 
-          let weekly_redirect_url = '<lticm:property name="url">' + this.info.url + "pages/activities</lticm:property>"
-          let zoom_redirect_url = '<lticm:property name="url">' + this.info.url + "pages/zoom</lticm:property>"
+          if(this.info.useStudents){
+            zip.file(
+              "wiki_content/students.html",
+              headings.studentList + this.$refs.studentsList.returnCode("students-list-code") + footer
+            )
+            zip.file(
+              "ccb-student-list-redirect.xml",
+              headings.student_list_redirect_top + student_list_redirect_url + headings.redirect_bottom
+            )
+          }
 
           zip.file(
             "ccb-weekly-redirect.xml",
             headings.weekly_redirect_top + weekly_redirect_url + headings.redirect_bottom
           )
+
           zip.file("ccb-zoom-redirect.xml", headings.zoom_redirect_top + zoom_redirect_url + headings.redirect_bottom)
 
           // Add info to manifest
@@ -250,21 +259,36 @@ export default {
                 })
               }
 
+              //add zoom resource
+              // addResource({
+              //   xml: manifest,
+              //   iden: "ccb-zoom-redirect",
+              //   link: "ccb-zoom-redirect.xml"
+              // })
+
               //add students
-              for (let i = 1; i <= this.info.students.length; i++) {
-                let title = "<title>Student " + i + "</title>"
-                let iden = '<meta name="identifier" content="ccb-student' + i + '"/>'
-                let el = document.getElementById("student-box" + (i - 1))
-                let code = el.innerHTML.replace(/\bdata-v-\S+\"/gi, "")
-                zip.file(
-                  "wiki_content/student-" + i + ".html",
-                  headings.top + title + iden + headings.bottom + code + footer
-                )
+              if (this.info.useStudents){
                 addResource({
                   xml: manifest,
-                  iden: "ccb-student-" + i,
-                  link: "wiki_content/pages/student-" + i
+                  type: "redirect",
+                  iden: "ccb-student-list-redirect",
+                  link: "ccb-student-list-redirect.xml"
                 })
+                for (let i = 1; i <= this.info.students.length; i++) {
+                  let title = "<title>Student " + i + "</title>"
+                  let iden = '<meta name="identifier" content="ccb-student' + i + '"/>'
+                  let el = document.getElementById("student-box" + (i - 1))
+                  let code = el.innerHTML.replace(/\bdata-v-\S+\"/gi, "")
+                  zip.file(
+                    "wiki_content/student-" + i + ".html",
+                    headings.top + title + iden + headings.bottom + code + footer
+                  )
+                  addResource({
+                    xml: manifest,
+                    iden: "ccb-student-" + i,
+                    link: "wiki_content/pages/student-" + i
+                  })
+                }
               }
 
               addResource({ xml: manifest, iden: "ccb-zoom", link: "wiki_content/pages/zoom" })
@@ -333,6 +357,7 @@ export default {
               let manifestString = serializer.serializeToString(manifest)
               console.log(manifest)
               zip.file("imsmanifest.xml", manifestString)
+              
 
               let today = new Date()
               let date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate()
@@ -340,6 +365,7 @@ export default {
               let dateTime = date + " " + time
 
               zip.generateAsync({ type: "blob" }).then(blob => {
+                console.log('saving file...')
                 saveFile({
                   name: this.info.title + " (" + dateTime + ").imscc",
                   data: blob
@@ -392,6 +418,11 @@ export default {
             let settingsFile = xml.createElement("file")
             resource.appendChild(settingsFile)
             settingsFile.setAttribute("href", iden + "/assignment_settings.xml")
+            break
+          case "redirect":
+            resource.setAttribute("type", "imsbasiclti_xmlv1p0")
+            resource.setAttribute("href", link)
+            file.setAttribute("href", link)
             break
           default:
             break
