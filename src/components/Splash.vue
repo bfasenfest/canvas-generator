@@ -41,14 +41,15 @@
                 inactive-color="#ff4949">
               </el-switch>
             </el-form-item> -->
-            <el-form-item label="Use Zoom" prop="useZoom">
+            <!-- <el-form-item label="Use Zoom" style="min-width: 150px" prop="useZoom">
               <el-switch
                 v-model="ruleForm.useZoom"
                 active-color="#13ce66"
                 inactive-color="#ff4949">
               </el-switch>
-            </el-form-item>
-            <el-form-item label="Use Students Page" prop="useStudents">
+            </el-form-item> -->
+            <el-form-item  prop="useStudents">
+              <label for="select" style="min-width: 150px; margin-left: -100px">Use Student Pages</label>
               <el-switch
                 v-model="ruleForm.useStudents"
                 active-color="#13ce66"

@@ -120,7 +120,7 @@
             inactive-color="#ff4949">
           </el-switch>
         </p> -->
-         <p>
+         <!-- <p>
           <label for="select" style="min-width: 150px">Use Zoom</label>
           <el-switch
             v-model="info.useZoom"
@@ -128,7 +128,7 @@
             active-color="#13ce66"
             inactive-color="#ff4949">
           </el-switch>
-        </p>
+        </p> -->
         <p>
           <label for="select" style="min-width: 150px">Use Student Pages</label>
           <el-switch
@@ -138,7 +138,7 @@
             inactive-color="#ff4949">
           </el-switch>
         </p>
-        <p>
+        <!-- <p>
           <label for="select" style="min-width: 150px">Help Tooltips</label>
           <el-switch
             v-model="info.usePops"
@@ -146,7 +146,7 @@
             active-color="#13ce66"
             inactive-color="#ff4949">
           </el-switch>
-        </p>
+        </p> -->
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">Cancel</el-button>
