@@ -22,6 +22,7 @@
             <li v-show="info.useStudents"><router-link class="router" to="/studentlist">Students List</router-link></li>
             <li v-show="info.useStudents"><router-link class="router" to="/student" >Student</router-link></li>
             <!-- <li v-show="info.useZoom"><router-link class="router"  to="/zoom">Zoom</router-link></li> -->
+            <li><router-link class="router" to="/modules">Module Builder</router-link></li>
             <li><router-link class="router" to="/export">Export</router-link></li>
           </ul>
       </el-col>
@@ -321,7 +322,7 @@ export default {
   },
   methods: {
     ...mapActions(["updateWeek", "addWeek", "sliceWeek", "updateWeeks", "updateInfo", "addTA",
-                  "addProf", "addStudent","setStateField"]),
+                  "addProf", "addStudent","setStateField", "addModule"]),
     showAllCourses(){
       const version = this.currentVersion
       this.$store.dispatch('setSavedState', { uuid: this.getCurrentCourse, version: version })
@@ -416,7 +417,7 @@ export default {
   },
   mixins: [RowTypes, saveState, PageMixin],
   computed: {
-    ...mapGetters([ 'isSettingsVisible', 'getCurrentCourse', 'getCurrentVersion', 'getSavedStates', 'getWeeks', 'getDefaultState' ]),
+    ...mapGetters([ 'isSettingsVisible', 'getCurrentCourse', 'getCurrentVersion', 'getSavedStates', 'getWeeks', 'getDefaultState', "getModules" ]),
     loading() {
       return this.$store.getters.loading
     },
@@ -462,6 +463,11 @@ export default {
   beforeMount() {
     if(this.getDefaultState === null) {
       this.$store.dispatch('setDefaultState')
+    }
+
+    if (this.getModules.length < 1) {
+      console.log("building base module")
+      this.addModule()
     }
 
     if (this.weeks.length < 1) {

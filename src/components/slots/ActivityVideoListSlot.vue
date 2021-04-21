@@ -111,9 +111,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getWeekPropByID', 'getWeekItemPropGetter','getInfo','getWeekItemPropByID']),
+    ...mapGetters(['getWeekPropByID', 'getWeekItemPropGetter','getInfo','getWeekItemPropByID', 'getSessionPropByID']),
     itemList: function(){
-        let videos = this.getWeekPropByID('videos', this.data.weekID).get
+        let videos = this.getSessionPropByID('videos', this.data.weekID).get
         videos.forEach( video => {
           this.data[video.id] = video
         })

@@ -38,15 +38,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getWeekPropByID']),
+    ...mapGetters(['getWeekPropByID', 'getModulePropByID', 'getSessionPropByID']),
     itemList: function(){
       if (this.data.type == "all") {
-        let discussions = this.getWeekPropByID('discussions', this.data.weekID).get
-        let assignments = this.getWeekPropByID('assignments', this.data.weekID).get
+        let discussions = this.getSessionPropByID('discussions', this.data.weekID).get 
+        let assignments = this.getSessionPropByID('assignments', this.data.weekID).get 
         return discussions.concat(assignments)
       }
       else {
-        let list = this.getWeekPropByID(this.data.type + 's', this.data.weekID)
+        let list = this.getSessionPropByID(this.data.type + 's', this.data.weekID) 
         return list.get
       }
     }

@@ -275,7 +275,7 @@ export default {
             editorType: 'Tiny'
           },
           getter: {
-            content: this.getWeekPropGetter('body', id)
+            content: this.getWeekPropGetter('body', id) 
           }
         }
       }
@@ -291,6 +291,64 @@ export default {
         [[itemListSlot]],
       ]
     },
+    moduleDefaultRowsByID(id){
+      let videoListSlot = {
+        type: "activity-video-list-slot",
+        width: 12,
+        data: {
+          weekID: id
+        },
+        getter: {}
+      }
+      let itemListSlot = {
+        type: "activity-item-list-slot",
+        width: 12,
+        data: {
+          weekID: id
+        },
+        getter: {}
+      }
+      let caseSlot = {
+        type: "list-slot",
+        width: 12,
+        data: {
+          component: "case-slot",
+        },
+        getter: {
+          items: this.getModulePropGetter('cases', id)
+        }
+      }
+
+      let introCol = _.cloneDeep(this.colTypes.activityListIntro.array)
+
+      let options = {
+        title: {
+          getter: {
+            title: this.getModulePropGetter('title', id)
+          }
+        },
+        content : {
+          data:{
+            editorType: 'Tiny'
+          },
+          getter: {
+            content: this.getModulePropGetter('body', id)
+          }
+        }
+      }
+
+      introCol[0] = _.merge(introCol[0], options.title)
+      introCol[2] = _.merge(introCol[2], options.content)
+
+      return [
+        'title-banner-row',
+        [introCol],
+        [[videoListSlot]],
+        [[caseSlot]],
+        [[itemListSlot]],
+      ]
+    },
+    
     findRow(objKey, objValue){
       for (const [name, row] of Object.entries(this.rowTypes)){
         if (row[objKey] == objValue) return row

@@ -12,6 +12,7 @@ export default {
 
   // Where the weeks are stored
   weeks: [],
+  modules: [],
 
   // UTILS
   loading: false,

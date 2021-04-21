@@ -7,6 +7,7 @@ export default {
   getConfig: state => state.config,
   loading: state => state.loading,
   getWeeks: state => state.weeks,
+  getModules: state => state.modules,
   getImageServer: state => state.imageServer,
   getDefaultState: state => state.defaultState,
   areComponentsRendered: state => state.componentsRendered,
@@ -68,6 +69,47 @@ export default {
     })
     return res
   },
+  getSessionIndexByID: (state) => (id) => {
+    let type = 'weeks'
+    let index = _.findIndex(state.weeks, { id })
+    if (index == -1) {
+      index = _.findIndex(state.modules, { id })
+      type = 'modules'
+    }
+    return {index, type}
+  },
+  getSessionPropByID: (state, getters) => (prop, id) => {
+    let session = _.find(state.weeks, { id })
+    if (session) {
+      return {
+        get: session[prop],
+        set: `weeks[${getters.getWeekIndexByID(id)}].${prop}`
+      }
+    }
+    else {
+      let module = _.find(state.modules, { id })
+      return {
+        get: module[prop],
+        set: `modules[${getters.getModuleIndexByID(id)}].${prop}`
+      }
+    }
+  },
+  getModuleIndexByID: (state) => (id) => {
+    return _.findIndex(state.modules, {id})
+  },
+  getModulePropByID: (state, getters) => (prop, id) => {
+    let module = _.find(state.modules, { id })
+    return {
+      get: module[prop],
+      set: `modules[${getters.getModuleIndexByID(id)}].${prop}`
+    }
+  },
+  getModulePropGetter: (state, getters) => (prop, id) => {
+    return {
+      func: 'getModulePropByID',
+      props: [prop, id]
+    }
+  },
   getWeekByID: (state) => (id) => {
     return _.find(state.weeks, {id})
   },
@@ -76,6 +118,7 @@ export default {
   },
   getWeekPropByID: (state, getters) => (prop, id) => {
     let week = _.find(state.weeks, { id })
+    if (!week) return null
     return {
       get: week[prop],
       set: `weeks[${getters.getWeekIndexByID(id)}].${prop}`

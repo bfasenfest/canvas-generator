@@ -255,6 +255,21 @@ export default {
       commit('updateUser', { user, prop, value })
     },
 
+    //Module Actions
+    addModule: ({ commit, getters }, data = {}) => {
+      let dModule = _.cloneDeep(getters.getDWeek)
+      let module = {...dModule, ...data}
+      module.id = uuid.v1()
+      commit('addModule', module)
+
+    },
+    deleteModule: ({ commit }, module) => {
+      commit('deleteModule', module)
+    },
+    updateModule: ({ commit }, data) => {
+      commit('updateModule', data)
+    },
+    
     //Week Actions
     addWeek: ({ commit, getters }, data = {}) => {
 
@@ -293,11 +308,17 @@ export default {
 
     //Week Element Actions
     addVideo: ({ commit, getters }, {index, data = {}}) => {
-      let dVideo= _.cloneDeep(getters.getDVideo)
+      let dVideo = _.cloneDeep(getters.getDVideo)
       let video = {...dVideo, ...data}
+      let type = 'weeks'
       video.id = uuid.v1()
-      if (index.length > 2) index = getters.getWeekIndexByID(getters.getSelectedWeekID)
-      commit('addVideo', { video, index })
+      console.log(index)
+      if (index.length > 2) {
+        console.log(getters.getSessionIndexByID(index))
+        index = getters.getSessionIndexByID(index).index
+        type = getters.getSessionIndexByID(index).type
+      }
+      commit('addVideo', { video, index, type })
     },
 
     addCase: ({ commit, state, getters }, {index, caseStudy}) => {

@@ -147,8 +147,8 @@ export default {
   },
 
   //Week Element Mutations
-  addVideo: (state, {video, index}) => {
-    state.weeks[index].videos.push(video)
+  addVideo: (state, {video, index, type}) => {
+    state[type][index].videos.push(video)
   },
 
   addCase: (state, { index, caseStudy }) => {
@@ -167,6 +167,21 @@ export default {
 
   addDiscussion: (state, {discussion, index}) => {
     state.weeks[index].discussions.push(discussion)
+  },
+
+  //Module Mutations
+  addModule: (state, module) => {
+    state.modules.push(module)
+  },
+  deleteModule: (state, module) => {
+    state.modules = state.modules.filter((item) => {
+      return item.id !== module.id
+    })
+
+    console.log(state.modules)
+  },
+  updateModule: (state, { index, prop, value }) => {
+    Vue.set(state.modules[index], prop, value)
   },
 
   //Page Mutations

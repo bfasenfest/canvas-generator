@@ -6,6 +6,7 @@ import NewHome from 'components/pages/NewHome'
 import NewActivity from 'components/pages/NewActivity'
 import NewSyllabus from 'components/pages/NewSyllabus'
 import NewWeeklyList from 'components/pages/NewWeeklyList'
+import ModulePage from 'components/pages/ModulePage'
 import Syllabus from 'components/pages/Syllabus'
 import Program from 'components/pages/ProgramOverview'
 import Weekly from 'components/pages/Weekly'
@@ -35,6 +36,11 @@ export default new Router({
       path: '/home',
       name: 'Home',
       component: NewHome
+    },
+    {
+      path: '/modules',
+      name: 'Module Builder',
+      component: ModulePage
     },
     {
       path: '/activity',
