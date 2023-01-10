@@ -184,8 +184,11 @@ export default {
       // });
       // console.log(clone);
 
-      let converted = this.recursiveInlineStyle(this.$refs.canvascode);
-      // converted = html;
+      let converted = this.recursiveInlineStyle(html);
+      // let converted = html;
+      // let banner = document.querySelector(".STV1_SlimBanner");
+      // console.log(banner);
+      // this.createInlineStyle(banner);
       setTimeout(() => {
         var aux = document.createElement("input");
         aux.setAttribute("value", converted.innerHTML);
@@ -209,6 +212,50 @@ export default {
       return html;
     },
     createInlineStyle(targetDOMElement) {
+      if (targetDOMElement === null || targetDOMElement.classList.length == 0)
+        return;
+      var targetObjsStyles = window.getComputedStyle(targetDOMElement);
+      if (targetObjsStyles.display === "none") return;
+      console.log(targetDOMElement);
+      var proto = Element.prototype;
+      var slice = Function.call.bind(Array.prototype.slice);
+      var matches = Function.call.bind(
+        proto.matchesSelector ||
+          proto.mozMatchesSelector ||
+          proto.msMatchesSelector ||
+          proto.oMatchesSelector
+      );
+
+      // Returns true if a DOM Element matches a cssRule
+      var elementMatchCSSRule = function (element, cssRule) {
+        return element.matches(cssRule.selectorText);
+      };
+
+      // Here we get the cssRules from tha canvas code
+      var cssRules = slice([document.styleSheets[5]]).reduce(function (
+        rules,
+        styleSheet
+      ) {
+        return rules.concat(slice(styleSheet.cssRules));
+      },
+      []);
+
+      var getAppliedCss = function (elm) {
+        // get only the css rules that matches that element
+        var elementRules = cssRules.filter(elementMatchCSSRule.bind(null, elm));
+        let style = "";
+        console.log(elementRules);
+        elementRules.forEach((rule) => {
+          let cssText = rule.cssText.split("{")[1].slice(0, -1);
+          style += cssText;
+          targetDOMElement.classList.remove(rule.selectorText.slice(1));
+        });
+        targetDOMElement.style.cssText = style;
+      };
+
+      getAppliedCss(targetDOMElement);
+    },
+    createInlineStyle2(targetDOMElement) {
       let ignoredStyles = [];
       // [
       //   "inset",
