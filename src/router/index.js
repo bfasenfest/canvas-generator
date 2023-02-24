@@ -1,25 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Splash from 'components/pages/Splash'
-import Home from 'components/pages/Home'
-import NewHome from 'components/pages/NewHome'
-import NewActivity from 'components/pages/NewActivity'
-import NewSyllabus from 'components/pages/NewSyllabus'
-import NewWeeklyList from 'components/pages/NewWeeklyList'
-import Syllabus from 'components/pages/Syllabus'
-import Program from 'components/pages/ProgramOverview'
-import Weekly from 'components/pages/Weekly'
-import Zoom from 'components/pages/Zoom'
-import WeeklyList from 'components/pages/WeeklyList'
-import StudentsList from 'components/pages/StudentsList'
-import Student from 'components/pages/Student'
-import Export from 'components/pages/Export'
-import Guide from 'components/pages/Guide'
-import Credits from 'components/pages/Credits'
+import Splash from '@/components/pages/Splash.vue'
+import Home from '@/components/pages/Home.vue'
+import NewHome from '@/components/pages/NewHome.vue'
+import NewActivity from '@/components/pages/NewActivity.vue'
+import NewSyllabus from '@/components/pages/NewSyllabus.vue'
+import NewWeeklyList from '@/components/pages/NewWeeklyList.vue'
+import Syllabus from '@/components/pages/Syllabus.vue'
+import Program from '@/components/pages/ProgramOverview.vue'
+import Weekly from '@/components/pages/Weekly.vue'
+import Zoom from '@/components/pages/Zoom.vue'
+import WeeklyList from '@/components/pages/WeeklyList.vue'
+import StudentsList from '@/components/pages/StudentsList.vue'
+import Student from '@/components/pages/Student.vue'
+import Export from '@/components/pages/Export.vue'
+import Guide from '@/components/pages/Guide.vue'
+import Credits from '@/components/pages/Credits.vue'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -78,7 +79,7 @@ export default new Router({
     },
     {
       path: '/activities-old',
-      name: 'Activities',
+      name: 'OldActivities',
       component: WeeklyList
     },
     {
