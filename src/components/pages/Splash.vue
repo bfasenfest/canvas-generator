@@ -68,7 +68,7 @@
             <div class="uk-padding uk-light uk-height-medium" :style="{background: theme.primary}">
             	<h1>1</h1>
             	<h5>DESIGN IN REAL TIME</h5>
-            	<p>This website allows Columbia Professors and TA’s to quickly build Canvas class websites using our pre-built course template. </p>
+            	<p>This website allows Columbia Professors and TA's to quickly build Canvas class websites using our pre-built course template. </p>
             </div>
         </div>
         <div>

@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 <div id="list-code">
   <div id="canvas-code" class='show-content user_content clearfix enhanced ic-Layout-contentMain'>
     <div :class="['STV1_SlimBanner', this.$store.getters.getTheme.slim]"  style="width: 1054px;">

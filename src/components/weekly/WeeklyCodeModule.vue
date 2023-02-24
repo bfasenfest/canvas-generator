@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div>
     <div class='uk-text-center'>
       <el-button size="large" type="primary" style="display: inline-block; margin-top: 5px;" @click="fn">Add New <slot></slot></el-button>

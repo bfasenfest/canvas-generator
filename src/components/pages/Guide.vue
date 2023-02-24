@@ -28,7 +28,7 @@
     <div class="uk-modal-dialog uk-width-xlarge uk-margin-auto-vertical">
         <button class="uk-modal-close-outside" type="button" uk-close></button>
         <video controls uk-video>
-            <source src="./static/files/SilentCourseBuilderDemo.mp4?test1" type="video/mp4">
+            <source src="@/../static/files/SilentCourseBuilderDemo.mp4?test1" type="video/mp4">
         </video>
     </div>
   </div>

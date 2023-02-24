@@ -73,9 +73,9 @@
 <script>
 
 import slotMixin from '../mixins/slot-mixin.js'
-import VideoSlot from './VideoSlot'
-import TitleSlot from './TitleSlot'
-import ContentSlot from './ContentSlot'
+import VideoSlot from './VideoSlot.vue'
+import TitleSlot from './TitleSlot.vue'
+import ContentSlot from './ContentSlot.vue'
 import { quillEditor } from "vue-quill-editor"
 
 

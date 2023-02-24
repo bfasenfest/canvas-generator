@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div :id="'week-box'+idx" >
   <div class='show-content user_content clearfix enhanced ic-Layout-contentMain'>
     <div :class="['STV1_SlimBanner', this.$store.getters.getTheme.slim]"  style="width: 1054px;">
@@ -105,9 +105,9 @@
 <script>
 import PageMixin from "../../components/mixins/page-mixin"
 var moment = require("moment")
-import WeeklyVideo from "../weekly/WeeklyVideo"
-import WeeklyDiscussion from "../weekly/WeeklyDiscussion"
-import WeeklyAssignment from "../weekly/WeeklyAssignment"
+import WeeklyVideo from "../weekly/WeeklyVideo.vue"
+import WeeklyDiscussion from "../weekly/WeeklyDiscussion.vue"
+import WeeklyAssignment from "../weekly/WeeklyAssignment.vue"
 
 export default {
   data() {

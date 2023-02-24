@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div id="weeklylist">
 
   <hr>
@@ -177,8 +177,8 @@ import { mapActions, mapGetters } from "vuex"
 import PageMixin from "../../components/mixins/page-mixin"
 import { quillEditor } from "vue-quill-editor"
 import saveState from "vue-save-state"
-import WeeklyListItem from "../weekly/WeeklyListItem"
-import Home from "./Home"
+import WeeklyListItem from "../weekly/WeeklyListItem.vue"
+import Home from "./Home.vue"
 import _ from "lodash"
 
 var moment = require("moment")

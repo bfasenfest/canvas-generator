@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <transition name="fade">
     <div class="content-box">
 

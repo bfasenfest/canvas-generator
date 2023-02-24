@@ -133,10 +133,10 @@ import { quillEditor } from "vue-quill-editor"
 import ContainerComponent from '../common/ContainerComponent.vue'
 import PageMixin from "../../components/mixins/page-mixin"
 import RowTypes from '../../util/row-types.js'
-import WeeklyCodeModule from "../weekly/WeeklyCodeModule"
-import WeeklyVideo from "../weekly/WeeklyVideo"
-import WeeklyDiscussion from "../weekly/WeeklyDiscussion"
-import WeeklyAssignment from "../weekly/WeeklyAssignment"
+import WeeklyCodeModule from "../weekly/WeeklyCodeModule.vue"
+import WeeklyVideo from "../weekly/WeeklyVideo.vue"
+import WeeklyDiscussion from "../weekly/WeeklyDiscussion.vue"
+import WeeklyAssignment from "../weekly/WeeklyAssignment.vue"
 import moment from "moment"
 
 var toolbarOptions = [

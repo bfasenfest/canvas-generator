@@ -18,7 +18,7 @@
 <script>
 
 import slotMixin from '../mixins/slot-mixin.js'
-import ActivityItemSlot from './ActivityItemSlot'
+import ActivityItemSlot from './ActivityItemSlot.vue'
 
 import { mapActions, mapGetters } from 'vuex'
 

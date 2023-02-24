@@ -75,7 +75,6 @@
               </div>
             </span>
           </li>
-          </li>
 
           <li class="uk-text-center">
             <el-input autosize style="width: 400px;" :value="info.meetings" @input="updateProp('meetings', $event)"></el-input>
@@ -105,6 +104,8 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 import ContainerComponent from '../common/ContainerComponent.vue'
 import validator from "validator"
 
@@ -163,7 +164,7 @@ export default {
         return _.pickBy(this.defaultOptions, (theme, key) => {
           return _.includes(this.Config.themes.visible, theme.option)
         })
-      } 
+      }
     }
   }
 }

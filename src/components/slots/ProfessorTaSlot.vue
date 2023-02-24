@@ -35,7 +35,7 @@
 
 import Vue from 'vue'
 import slotMixin from '../mixins/slot-mixin.js'
-import ImageSlot from './ImageSlot'
+import ImageSlot from './ImageSlot.vue'
 import _ from 'lodash'
 
 

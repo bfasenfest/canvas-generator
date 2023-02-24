@@ -5,7 +5,7 @@
             <div class="uk-background-cover uk-height-large uk-panel uk-text-center" style="background-image: url(static/images/cover02.jpg);">
                <div class="uk-overlay uk-overlay-primary uk-height-large">
                  <p>&nbsp;</p>
-                 <img src="static/images/sipalogo_trans.png" />
+                 <img src="@/../static/images/sipalogo_trans.png" />
                  <h1 class="uk-heading">Credits</h1>
                  <p class="uk-width-1-2@s uk-margin-auto-left uk-margin-auto-right">This was a project of the Picker Center Digital Education Group (PCDEG) at SIPA, created with support and funding from the Office of the Provost (Columbia Online) and the Center for Teaching and Learning (CTL).</p>
                </div>

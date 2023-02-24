@@ -31,8 +31,8 @@
 <script>
 
 import slotMixin from '../mixins/slot-mixin.js'
-import NameValueSlot from './NameValueSlot'
-import TitleSlot from './TitleSlot'
+import NameValueSlot from './NameValueSlot.vue'
+import TitleSlot from './TitleSlot.vue'
 
 import { mapActions, mapGetters } from 'vuex'
 

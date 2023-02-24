@@ -58,9 +58,9 @@
 <script>
 
 import slotMixin from '../mixins/slot-mixin.js'
-import NameValueSlot from './NameValueSlot'
-import TitleSlot from './TitleSlot'
-import VideoSlot from './VideoSlot'
+import NameValueSlot from './NameValueSlot.vue'
+import TitleSlot from './TitleSlot.vue'
+import VideoSlot from './VideoSlot.vue'
 
 import { mapActions, mapGetters } from 'vuex'
 

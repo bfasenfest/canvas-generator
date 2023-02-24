@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="content-box">
     <div class="grid-row top-xs">
       <div v-if="info.useWeeklyImages" class="col-xs-4">

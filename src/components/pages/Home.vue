@@ -241,9 +241,9 @@ import { quillEditor } from "vue-quill-editor"
 import validator from "validator"
 import _ from "lodash"
 import PageMixin from "../../components/mixins/page-mixin"
-import homeView from ".././render/homeView"
+import homeView from ".././render/homeView.vue"
 
-import xml2js from "xml2js"
+// import xml2js from "xml2js"
 import JSZip from "jszip"
 import JSZipUtils from "jszip-utils"
 
@@ -273,7 +273,7 @@ export default {
     }
   },
   components: {
-    quillEditor,
+    // quillEditor,
     homeView
   },
   mixins: [saveState, PageMixin],

@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 
   <div id="weeklylist">
 
@@ -94,7 +94,7 @@
         </div> -->
       <br>
       </div>
-      </transition>
+      <!-- </transition> -->
       <div style="margin-top: 10px;"><br> <hr></div>
 
 
@@ -291,12 +291,12 @@ import { mapGetters } from "vuex"
 import PageMixin from "../../components/mixins/page-mixin"
 import { quillEditor } from "vue-quill-editor"
 // import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
-import WeeklyCodeModule from "../weekly/WeeklyCodeModule"
-import WeeklyVideo from "../weekly/WeeklyVideo"
-import WeeklyDiscussion from "../weekly/WeeklyDiscussion"
-import WeeklyAssignment from "../weekly/WeeklyAssignment"
-import saveState from "vue-save-state"
-import Home from "./Home"
+import WeeklyCodeModule from "../weekly/WeeklyCodeModule.vue"
+import WeeklyVideo from "../weekly/WeeklyVideo.vue"
+import WeeklyDiscussion from "../weekly/WeeklyDiscussion.vue"
+import WeeklyAssignment from "../weekly/WeeklyAssignment.vue"
+// import saveState from "vue-save-state"
+// import Home from "./Home"
 import moment from "moment"
 
 var toolbarOptions = [

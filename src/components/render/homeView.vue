@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div id="home-box" class="limiter show-content user_content clearfix enhanced ic-Layout-contentMain">
     <div :class="['pad-box-mega','STV1_Banner', info.wideBanner ? theme.wide : theme.banner]">
       <img  v-if="theme.logo" :src="theme.logo" style="margin-top: -10px; margin-left: 10px" />
