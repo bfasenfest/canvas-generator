@@ -5,7 +5,7 @@
 import Vue from 'vue'
 import VueDraggable from 'vue-draggable'
 
-import App from './App';
+import App from './App.vue';
 import router from './router';
 import store from './store/store';
 import UUID from "vue-uuid";
@@ -14,7 +14,7 @@ import UUID from "vue-uuid";
 import VueResource from 'vue-resource';
 import Snotify from 'vue-snotify';
 import 'vue-snotify/styles/material.css';
-import VueTippy from 'vue-tippy';
+// import VueTippy from 'vue-tippy';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'; // Use this OR theme chalk in index.html
 import locale from 'element-ui/lib/locale/lang/en';
@@ -27,7 +27,7 @@ Vue.use(Snotify);
 Vue.use(ElementUI, {
   locale
 });
-Vue.use(VueTippy);
+// Vue.use(VueTippy);
 // Vue.use(CKEditor);
 
 // Create Global methods
@@ -53,6 +53,7 @@ Vue.use(GlobalMethods);
 new Vue({
   el: '#app',
   router,
+  render: h => h(App),
   store,
   template: '<App/>',
   components: {
