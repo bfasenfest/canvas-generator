@@ -46,7 +46,7 @@
           </el-dropdown> -->
 
           <a href="#help-slide" uk-toggle>
-            <el-button type="warning" style="display: inline-block;"> Help <i class="fas fa-info-circle"></i></el-button>
+            <el-button type="warning" style="display: inline-block; margin-left: 10px"> Help <i class="fas fa-info-circle"></i></el-button>
           </a>
         </div>
       </el-col>
