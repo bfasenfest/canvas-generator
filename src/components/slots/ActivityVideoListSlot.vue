@@ -43,7 +43,7 @@
       <div class="col-xs-6">
         <blockquote :style="{borderLeft: '4px solid' + primary}" style="min-height: 300px; font-weight: normal; font-size: 16px; font-style: inherit;">
         <div class="styleguide-section__grid-demo-element">
-          <div :style="{background: primary, fontSize: '14px', padding: '12px', color: '#FFFFFF'}"
+          <div :style="{fontSize: '16px', padding: '12px', color: '#FFFFFF'}" class="STV1_WelcomeAlt"
           @dblclick="setEditing(video.id + 'title')" v-if="editing !== video.id + 'title'" >{{video.title}}</div>
           <span data-hidden v-else>
             <input ref="title" @blur="finishEditing('title', video.id)" v-model='data[video.id].title' />
