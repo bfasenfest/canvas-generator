@@ -50,7 +50,7 @@ export default {
             "imgSrc": "https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/campus.jpg",
             "width": "480",
             "height": "270",
-            alt: "Preview Image"
+            alt: "Course Home Image"
           }
         },
         contentSlot: {

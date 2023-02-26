@@ -202,10 +202,10 @@ export default {
       let imageCol = this.activityImageCol({
           data: {
             linkID: id,
-            alt: this.getWeekPropByID('title', id).get
           },
           getter: {
-          imgSrc: this.getWeekPropGetter('imgSrc', id) // this.$store.state.imageServer + this.$store.state.info.classType.dateType.toLowerCase() + (this.getWeekIndexByID(id)+1) + ".png",
+          imgSrc: this.getWeekPropGetter('imgSrc', id),
+          alt: this.getWeekPropGetter('title', id) // this.$store.state.imageServer + this.$store.state.info.classType.dateType.toLowerCase() + (this.getWeekIndexByID(id)+1) + ".png",
           }
         })
       let sidebarCol = this.activitySidebarCol({
