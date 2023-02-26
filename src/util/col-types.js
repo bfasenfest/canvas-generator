@@ -66,10 +66,6 @@ export default {
                     label: "Activities",
                     to: "/pages/activities"
                   },
-                  {
-                    label: "Zoom",
-                    to: "/pages/zoom"
-                  }
                 ]
               }
             }
