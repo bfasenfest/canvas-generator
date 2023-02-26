@@ -22,7 +22,7 @@
             session. Warning! This will overwrite all information you have currently entered.
           </p>
           <!-- uk-box-shadow-large if shadow needed -->
-              <div class=" uk-padding-small uk-padding-remove-bottom">
+              <div class=" uk-padding-small uk-box-shadow-large uk-padding-remove-bottom">
                     <h4>Select a ".json" file from a previous data export</h4>
                       <form>
                       <button
@@ -45,7 +45,7 @@
                       </div>
                     </form>
               </div>
-               <div class="uk-box-shadow-large uk-padding-small uk-padding-remove-bottom" v-if="false">
+               <div class="uk-box-shadow-large uk-padding-small uk-padding-remove-bottom" >
                     <h4>Select an ".imscc" file from a canvas course export</h4>
                       <form>
                       <button
@@ -146,6 +146,8 @@ export default {
   data() {
     return {
       hasImportData: false,
+      packageImportData: {},
+      hasPacakgeImportData: false,
       fullscreenLoading: false,
       exportData: {}
     }
@@ -174,6 +176,52 @@ export default {
       }
 
       reader.readAsText(file)
+    },
+    
+    onImportPacakgeFileChange(changeEvent) {
+      let file = changeEvent.target.files[0]
+      if (!file) {
+        return
+      }
+
+      JSZip.loadAsync(file)                                   // 1) read the Blob
+            .then(function(zip) {
+              zip
+              .file("imsmanifest.xml")
+              .async("string")
+              .then(data => {
+                let parser = new DOMParser()
+                let manifest = parser.parseFromString(data, "text/xml")
+              })
+
+                zip.forEach(function (relativePath, zipEntry) {  
+                  if (zipEntry.name.includes('html')){
+                    console.log(zipEntry.name)
+
+                    //read all zip files and log data from the ones that contain videos
+                    zip
+                    .file(zipEntry.name)
+                    .async("string")
+                    .then(data => {
+                      let parser = new DOMParser()
+                      let pageHtml = parser.parseFromString(data, "text/html")
+                      console.log(pageHtml)
+                      let videoFrames = pageHtml.getElementsByTagName('iframe')
+                      if (videoFrames) {
+                        let pageData = {
+                          title: videoFrames[0].title,
+                          src: videoFrames[0].src
+                        }
+                        console.log(pageData)
+                      }
+                    })
+                  }
+                });
+            })
+
+
+      this.packageImportData = file
+      this.hasPackageImportData = !!this.packageImportData
     },
     exportIMSCC() {
       let serializer = new XMLSerializer()
@@ -235,14 +283,6 @@ export default {
             .then(data => {
               let parser = new DOMParser()
               let manifest = parser.parseFromString(data, "text/xml")
-
-              //add weeks
-              // for (let i = 1; i <= this.weeks.length; i++) {
-
-              //   let el = document.getElementById("week-box" + (i - 1))
-              //   let code = el.innerHTML.replace(/\bdata-v-\S+\"/gi, "")
-
-              // }
 
               //add students
 
