@@ -207,9 +207,9 @@ export default {
           let zoom_redirect_url = '<lticm:property name="url">' + this.info.url + "pages/zoom</lticm:property>"
           let student_list_redirect_url = '<lticm:property name="url">' + this.info.url + "pages/students</lticm:property>"
 
-          if (this.info.useZoom) {
-            zip.file("wiki_content/zoom.html", headings.zoom + this.$refs.zoom.returnCode("zoom-code") + footer)
-          }
+          // if (this.info.useZoom) {
+          //   zip.file("wiki_content/zoom.html", headings.zoom + this.$refs.zoom.returnCode("zoom-code") + footer)
+          // }
 
           if(this.info.useStudents){
             zip.file(
@@ -226,7 +226,7 @@ export default {
             "ccb-weekly-redirect.xml",
             headings.weekly_redirect_top + weekly_redirect_url + headings.redirect_bottom
           )
-          zip.file("ccb-zoom-redirect.xml", headings.zoom_redirect_top + zoom_redirect_url + headings.redirect_bottom)
+          // zip.file("ccb-zoom-redirect.xml", headings.zoom_redirect_top + zoom_redirect_url + headings.redirect_bottom)
 
           // Add info to manifest
           zip
@@ -275,7 +275,7 @@ export default {
 
               }
 
-              addResource({ xml: manifest, iden: "ccb-zoom", link: "wiki_content/pages/zoom" })
+              // addResource({ xml: manifest, iden: "ccb-zoom", link: "wiki_content/pages/zoom" })
               addResource({ xml: manifest, iden: "ccb-weekly-list", link: "wiki_content/pages/activities" })
 
               this.weeks.forEach((week, weekIndex) => {
