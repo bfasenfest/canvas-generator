@@ -26,6 +26,7 @@
 <script>
 
 import { mapGetters } from 'vuex'
+import _ from 'lodash'
 
 import slotTypes from '../../../util/slot-types.js'
 import slotMixin from '../../mixins/slot-mixin.js'

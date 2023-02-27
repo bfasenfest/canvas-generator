@@ -48,10 +48,10 @@
             </el-alert>
 
 
-            <el-input style="width: 220px;" v-popover:titlepop placeholder="Please input your Course Title" :value="info.title" @input="updateProp('title', $event)"></el-input>
+            <el-input style="width: 220px;" titlepop placeholder="Please input your Course Title" :value="info.title" @input="updateProp('title', $event)"></el-input>
 
-            <el-input title="This is your Course ID" style="width: 200px;" :value="info.semester" @input="updateProp('semester', $event)" v-tippy="{delay: [1000,200]}"></el-input>
-            <el-input style="width: 400px;" v-popover:urlpop placeholder="Please input your Course URL"  :value="info.url" @input="updateProp('url', $event)"></el-input>
+            <el-input title="This is your Course ID" style="width: 200px;" :value="info.semester" @input="updateProp('semester', $event)"></el-input>
+            <el-input style="width: 400px;" urlpop placeholder="Please input your Course URL"  :value="info.url" @input="updateProp('url', $event)"></el-input>
 
           </li>
 
@@ -153,7 +153,6 @@ export default {
     invalidEmails() {
       let invalidEmails = this.info.tas.filter (ta => !validator.isEmail(ta.email) || ta.email == "invalidemail@pleasereplace.com")
       invalidEmails += this.info.profs.filter (prof => !validator.isEmail(prof.email) || prof.email == "invalidemail@pleasereplace.com")
-      console.log(invalidEmails)
       return invalidEmails.length > 0
     },
     weeklyUrl() {

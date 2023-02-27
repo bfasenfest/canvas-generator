@@ -159,7 +159,7 @@
       title="Are you sure?"
       :visible.sync="clearDialogVisible"
       width="40%"
-      :before-close="handleClose">
+    >
       <span>This will reset your course to the default values. This process is not reversible. Do you want to continue?</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="clearDialogVisible = false">Cancel</el-button>
