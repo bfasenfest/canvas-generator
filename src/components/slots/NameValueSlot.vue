@@ -1,5 +1,5 @@
 <template>
-  <div :id="sid" class="col name-value-slot">
+  <div :id="sid" class="col name-value-slot" v-if="data.value !== 'hidden'">
     <a :href="createLink(data.link)" @click="doNothing"
     :style="(!data.link && !data.linkID) ? 'cursor: context-menu;color: black; text-decoration: none;' : 'color: black; text-decoration: none;'">
     <span :style="data.nameStyle">{{ data.name}}:</span>

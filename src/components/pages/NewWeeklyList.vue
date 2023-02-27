@@ -75,6 +75,9 @@
           </div>
         </div>
         </el-card>
+        <div class="center" style="margin-top:20px">
+          <el-button type="warning" @click="toggleDates">{{ datesActive ? 'Remove Dates' : 'Add Dates' }}</el-button>
+        </div>
         <!-- <div class="center add-weekly">
           Links
           <el-switch
@@ -162,6 +165,10 @@ export default {
     activityRows(){
       let rows =  this.$store.getters.getRowsByCID['activities-list'] || []
       return rows.filter( row => row.type == 'activity-row')
+    },
+    datesActive(){
+      console.log(this.weeks[0].date)
+      return this.weeks[0].date !== 'hidden'
     }
   },
   methods: {
@@ -215,6 +222,12 @@ export default {
         this.sliceWeek(num)
       }
 
+    },
+    toggleDates(){
+      let val = this.datesActive? 'hidden' : this.getInfo.startDate
+      for (let i = 0; i <= this.activityRows.length; i++){
+        this.updateWeek(i, 'date', val)
+      }
     },
     onFormSubmit(type, ev) {
       var formData = new FormData()
