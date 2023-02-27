@@ -19,11 +19,11 @@ export default defineConfig({
       transformMixedEsModules: true
     }
   },
-  optimizeDeps: {
-    esbuildOptions: {
-      plugins: [
-        esbuildCommonjs(['vue-quill-editor'])
-      ]
-    }
-  }
+  // optimizeDeps: {
+  //   esbuildOptions: {
+  //     plugins: [
+  //       esbuildCommonjs(['quill','vue-quill','vue-quill-editor'])
+  //     ]
+  //   }
+  // }
 })
