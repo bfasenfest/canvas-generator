@@ -498,7 +498,7 @@ export default {
     }
     if (this.info.students.length < 1) this.addStudent()
     if (this.info.profs.length < 1) this.addProf()
-    if (this.info.tas.length < 1) this.addTA()
+    // if (this.info.tas.length < 1) this.addTA()
 
     if(!this.$store.getters.areComponentsRendered) {
 
