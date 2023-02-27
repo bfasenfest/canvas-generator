@@ -165,6 +165,10 @@ export default {
     state.weeks[index].assignments.push(assignment)
   },
 
+  addQuiz: (state, { quiz, index }) => {
+    state.weeks[index].quizes.push(quiz)
+  },
+
   addDiscussion: (state, {discussion, index}) => {
     state.weeks[index].discussions.push(discussion)
   },

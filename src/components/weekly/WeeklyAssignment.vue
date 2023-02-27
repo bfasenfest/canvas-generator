@@ -8,7 +8,7 @@
           </div>
           <div class="ig-info">
             <a class="ig-title" :href="data.link" :data-api-endpoint="data.link" data-api-returntype="Assignment"> Assignment {{index}}</a>
-          <div class="ig-details">
+          <div class="ig-details" v-if="data.due !== 'hidden'">
             <div class="ig-details__item">
               <strong>Due</strong> {{formatWeek(data.due)}}
             </div>

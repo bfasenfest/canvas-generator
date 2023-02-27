@@ -80,6 +80,7 @@ export default {
       videos: [],
       discussions: [],
       assignments: [],
+      quizes: [],
       cases: [],
       secondTitle: "",
     },
@@ -98,6 +99,13 @@ export default {
     assignmentDefault: {
       due: "Feb 4, 2017",
       type: 'assignment',
+      available: "Jan 1",
+      link: '', //context.rootState.courseUrl + 'discussion_topics/', TODO put this in a getter?
+      points: 10
+    },
+    quizDefault: {
+      due: "Feb 4, 2017",
+      type: 'quiz',
       available: "Jan 1",
       link: '', //context.rootState.courseUrl + 'discussion_topics/', TODO put this in a getter?
       points: 10
@@ -140,6 +148,7 @@ export default {
     getDVideo: state => state.videoDefault,
     getDAssignment: state => state.assignmentDefault,
     getDDiscussion: state => state.discussionDefault,
+    getDQuiz: state => state.quizDefault,
     getDInfo: state => state.infoDefault,
     getDProf: state => state.profDefault,
     getDStudent: state => state.studentDefault,

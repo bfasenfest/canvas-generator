@@ -107,6 +107,18 @@
         @clearArr="updateWeek(selected,'assignments', [])">
         Assignment
       </weekly-code-module>
+
+      <weekly-code-module
+        class="code-module"
+        :content="weeks[selected].quizes"
+        property='quizes'
+        :idx="selected"
+        :fn="addQuiz"
+        :inputs="['due']"
+        @clearArr="updateWeek(selected,'quizes', [])">
+        Quiz
+      </weekly-code-module>
+
       <div class="uk-text-center">
       <a href="#case-slide" uk-toggle>
         <el-button  class="center" size="large" style=" margin-right: 10px"> Add Case <i class="fas fa-info-circle"></i></el-button>
@@ -172,6 +184,7 @@ export default {
       videos: [],
       discussions: [],
       assignments: [],
+      quizes:[],
       outputCode: "",
       // editor: ClassicEditor,
       editorConfig: {},
@@ -245,9 +258,11 @@ export default {
 
     addDiscussion() {
       let manifestID = "ccb-session-" + (this.selected + 1) + "-disccusion-" + (this.weeks[this.selected].discussions.length + 1)
+      let currentDate = this.weeks[this.selected].date 
+      let due = currentDate === 'hidden' ? 'hidden' : moment(currentDate).add(7, "d")
       let tempDisc = {
         link: "$CANVAS_OBJECT_REFERENCE$/discussion_topics/" + manifestID,
-        due: moment(this.weeks[this.selected].date).add(7, "d"),
+        due,
         manifestID
       }
       console.log(tempDisc)
@@ -256,18 +271,31 @@ export default {
 
     addAssignment() {
       let manifestID = "ccb-session-" + (this.selected + 1) + "-assignment-" + (this.weeks[this.selected].assignments.length + 1)
+      let currentDate = this.weeks[this.selected].date 
+      let due = currentDate === 'hidden' ? 'hidden' : moment(currentDate).add(7, "d")
       let tempAssign = {
         link: "$CANVAS_OBJECT_REFERENCE$/assignments/" + manifestID,
-        due: moment(this.weeks[this.selected].date).add(7, "d"),
+        due,
         manifestID
       }
       this.$store.dispatch("addAssignment", {index:this.selected, data: tempAssign})
+    },
+    addQuiz() {
+      let manifestID = "ccb-session-" + (this.selected + 1) + "-quiz-" + (this.weeks[this.selected].quizes.length + 1)
+      let currentDate = this.weeks[this.selected].date 
+      let due = currentDate === 'hidden' ? 'hidden' : moment(currentDate).add(7, "d")
+      let tempQuiz = {
+        link: "$CANVAS_OBJECT_REFERENCE$/assignments/" + manifestID,
+        due,
+        manifestID
+      }
+      this.$store.dispatch("addQuiz", {index:this.selected, data: tempQuiz})
     },
 
     setToDefault() {
       console.log("resetting data...")
       let dWeek = _.cloneDeep(this.$store.getters.getDWeek)
-      let props = ["description", "title", "body", "required", "videos", "discussions", "assignments", "cases"]
+      let props = ["description", "title", "body", "required", "videos", "discussions", "assignments", "quizes","cases"]
 
       props.forEach(prop => {
         this.updateWeek(this.selected, prop, dWeek[prop])
