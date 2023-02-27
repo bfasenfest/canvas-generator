@@ -45,7 +45,7 @@
             <el-input style="width: 200px; float:left" class="e-input" :value="info[selected.list][selected.index].name" @input="updateUser(info[selected.list][selected.index],'name', $event)"> </el-input>
             <el-alert
               title="An instructor email is not formatted correctly. Please change to the format of example@domain.com"
-              type="error" class="alert" effect="dark" :closable="false" center show-icon
+              type="error" class="alert" effect="dark" center show-icon
               v-show="invalidEmails">
             </el-alert>
             <el-input class="e-input" v-if="selected.list" :value="info[selected.list][selected.index].email" @input="updateUser(info[selected.list][selected.index],'email', $event)"> </el-input>
