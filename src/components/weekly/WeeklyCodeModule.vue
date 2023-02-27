@@ -44,6 +44,7 @@
 
 <script>
 import PageMixin from "../../components/mixins/page-mixin"
+import _ from 'lodash'
 
 export default {
   data() {

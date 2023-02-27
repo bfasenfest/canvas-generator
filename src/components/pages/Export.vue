@@ -50,7 +50,7 @@
                       <form>
                       <button
                         class="uk-button uk-button-default"
-                        v-if="hasPacakgeImportData"
+                        v-if="importModuleList.length > 0"
                         @click.prevent="performPackageImport"
                       >File read successfully! Click here to confirm import.</button>
                       <div class="uk-margin" uk-margin>
@@ -147,6 +147,7 @@ export default {
     return {
       hasImportData: false,
       packageImportData: {},
+      importModuleList: [],
       hasPacakgeImportData: false,
       fullscreenLoading: false,
       exportData: {}
@@ -183,45 +184,102 @@ export default {
       if (!file) {
         return
       }
+      this.packageImportData = file
 
-      JSZip.loadAsync(file)                                   // 1) read the Blob
-            .then(function(zip) {
+      JSZip.loadAsync(file)                                   
+            .then( zip => {
+
+              // zip.forEach(function (relativePath, zipEntry) {  
+              //     if (zipEntry.name.includes('html')){
+              //       console.log(zipEntry.name)
+
+              //       //read all zip files and log data from the ones that contain videos
+              //       zip
+              //       .file(zipEntry.name)
+              //       .async("string")
+              //       .then(data => {
+              //         let parser = new DOMParser()
+              //         let pageHtml = parser.parseFromString(data, "text/html")
+              //         // console.log(pageHtml)
+              //         let videoFrames = pageHtml.getElementsByTagName('iframe')
+              //         if (videoFrames) {
+              //           let pageData = {
+              //             title: videoFrames[0].title,
+              //             src: videoFrames[0].src
+              //           }
+              //           // console.log(pageData)
+              //         }
+              //       })
+              //     }
+              //   });
+
               zip
               .file("imsmanifest.xml")
               .async("string")
               .then(data => {
                 let parser = new DOMParser()
                 let manifest = parser.parseFromString(data, "text/xml")
+                let org = manifest.querySelector('manifest > organizations > organization > item')
+                let items = Array.from(org.getElementsByTagName('item'))
+                let modules = items.filter(elem => elem.children.length > 1)
+                let moduleList = []
+                modules.forEach( module => {
+                  let titleList = module.getElementsByTagName('title')
+                  let moduleTitles = []
+                  for (let i=1; i<titleList.length; i++){
+                    let wikiTitle = 'wiki_content/' + titleList[i].innerHTML.replace(/\./g,'-dot-').replace(/\s+/g, '-').toLowerCase() + '.html';
+                    let nonPageStrings = ['quiz', 'discussion', 'assignment']
+                    if(!nonPageStrings.some(el => wikiTitle.includes(el))) {
+                      moduleTitles.push(wikiTitle)
+                    }
+                  }
+                  let tempModule = {
+                    title: titleList[0].innerHTML,
+                    sessions: moduleTitles
+                  }
+                  moduleList.push(tempModule)
+                })
+                console.log(moduleList)
+                this.importModuleList = moduleList
               })
 
-                zip.forEach(function (relativePath, zipEntry) {  
-                  if (zipEntry.name.includes('html')){
-                    console.log(zipEntry.name)
+            })
+    },
+    performPackageImport() {
 
-                    //read all zip files and log data from the ones that contain videos
-                    zip
-                    .file(zipEntry.name)
+      JSZip.loadAsync(this.packageImportData)                                   
+            .then( zip => {
+
+              this.importModuleList.forEach( (module, index) => {
+                console.log(module.title)
+                this.updateWeek(index, 'title', module.title)
+                module.sessions.forEach( session => {
+                  console.log(session)
+                  zip
+                    .file(session)
                     .async("string")
                     .then(data => {
                       let parser = new DOMParser()
                       let pageHtml = parser.parseFromString(data, "text/html")
-                      console.log(pageHtml)
-                      let videoFrames = pageHtml.getElementsByTagName('iframe')
+                      let videoFrames = Array.from(pageHtml.getElementsByTagName('iframe'))
+                      console.log(videoFrames)
                       if (videoFrames) {
-                        let pageData = {
-                          title: videoFrames[0].title,
-                          src: videoFrames[0].src
-                        }
-                        console.log(pageData)
+                        videoFrames.forEach(video => {
+                          let data = {
+                            source: video.src,
+                            title: video.title,
+                            description: "This video covers topics in " + video.title
+                          }
+                          this.$store.dispatch("addVideo", {index, data})
+                        })
                       }
-                    })
-                  }
-                });
+                  }, (err) => {
+                    console.error(err)
+                  })
+               })
             })
+              })
 
-
-      this.packageImportData = file
-      this.hasPackageImportData = !!this.packageImportData
     },
     exportIMSCC() {
       let serializer = new XMLSerializer()
