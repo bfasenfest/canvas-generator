@@ -146,11 +146,24 @@
         </p>
       </div>
 
-      <el-button @click="showAllCourses">Show all courses</el-button>
+      <el-button @click="showAllCourses">Show all courses</el-button> 
+      <el-button type='danger' @click="clearDialogVisible = true">Restore to Default</el-button>
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">Cancel</el-button>
         <el-button type="primary" @click="dialogFormVisible = false">Confirm</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog
+      title="Are you sure?"
+      :visible.sync="clearDialogVisible"
+      width="40%"
+      :before-close="handleClose">
+      <span>This will reset your course to the default values. This process is not reversible. Do you want to continue?</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="clearDialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="clearLocalStorage">Confirm</el-button>
       </span>
     </el-dialog>
 
@@ -290,6 +303,7 @@ export default {
     return {
       hasImportData: false,
       dialogFormVisible: false,
+      clearDialogVisible: false,
       exportData: {},
       showingCourses: false,
       newCourseName: '',
@@ -327,6 +341,10 @@ export default {
       const version = this.currentVersion
       this.$store.dispatch('setSavedState', { uuid: this.getCurrentCourse, version: version })
       this.showingCourses = true
+    },
+    clearLocalStorage(){
+      localStorage.clear();
+      location.reload();
     },
     addNewCourse(from) {
       const self = this
