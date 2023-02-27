@@ -1,7 +1,7 @@
 <template>
   <div :id="sid" class="col button-slot">
     <template v-for="button in data.buttons" >
-      <a :href="createLink(button.to)" @click="doNothing" :key="button.label" class="Button" style="margin-right: 7px;">
+      <a :href="createLink(button.to)" @click="doNothing" :key="button.label" class="Button" role="button" style="margin-right: 7px;">
         {{ button.label }}
       </a>
     </template>
