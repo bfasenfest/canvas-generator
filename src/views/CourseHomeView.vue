@@ -58,7 +58,8 @@ const content = ref([
     ],
   ],
 ])
-const dragging = ref(false)
+// const dragging = ref(false)
+const dragHelp = ref(false)
 
 onMounted(() => {
   courseInfoData.value = {
@@ -80,17 +81,6 @@ onMounted(() => {
 
   semester.value = courseHeadersStore.semester
 })
-
-// function addRow() {
-//   console.log("hi")
-//   // if (!domManipulationApproach.value) return
-//   // console.log(bannerImage)
-//   // let vNode = createVNode(BannerImage)
-//   // vNode.appContext = { ...appContext }
-//   // render(vNode, domManipulationApproach.value)
-//   // console.log(JSON.stringify(new String(domManipulationApproach.value.innerHTML)))
-//   // domManipulationApproach.value.append()
-// }
 
 function updateBanner(organization) {
   courseHeadersStore.setOrganization(organization)
@@ -263,6 +253,15 @@ watch(semester, (val) => courseHeadersStore.setSemester(val))
     </div>
     <!------ END OF HEADERS INPUTS ------>
 
+    <!-- TEMPLATE ACTIONS -->
+    <div class="flex justify-center mb-4">
+      <ActionButton
+        :text="`${ dragHelp ? 'Hide' : 'Show' } Drag Helpers`"
+        @click.prevent="dragHelp = !dragHelp"
+      />
+    </div>
+    <!-- END OF TEMPLATE ACTIONS -->
+
     <div
       ref="courseHomeCanvasContainer"
       id="courseHomeCanvasContainer"
@@ -280,6 +279,7 @@ watch(semester, (val) => courseHeadersStore.setSemester(val))
             :item-key="`item-home-row#${index + 1}`"
             style="display: grid; gap: 0.25rem; padding: 16px"
             :style="`grid-template-columns: repeat(${element.length}, minmax(0, 1fr))`"
+            :class="{ 'bg-blue-300 border-2 border-dotted': dragHelp }"
           >
             <template #item="col">
               <draggable
@@ -287,13 +287,18 @@ watch(semester, (val) => courseHeadersStore.setSemester(val))
                 v-model="content[index][col.index]"
                 :item-key="`item-home-col#${col.index}-of-row#${index + 1}`"
                 style="padding: 16px"
+                :class="{ 'bg-orange-300 border-2 border-black': dragHelp }"
               >
                 <template #item="{ element }">
                   <component
                     v-if="element.dynamic"
                     :is="element.name"
                   ></component>
-                  <div v-else v-html="element.html"></div>
+                  <div
+                    v-else
+                    v-html="element.html"
+                    style="background-color: white"
+                  ></div>
                 </template>
               </draggable>
             </template>
@@ -301,8 +306,6 @@ watch(semester, (val) => courseHeadersStore.setSemester(val))
         </template>
       </draggable>
     </div>
-
-    <!-- <ActionButton text="Add New Row" @click.prevent="addRow" /> -->
   </main>
 </template>
 
