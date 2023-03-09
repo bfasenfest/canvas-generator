@@ -1,29 +1,14 @@
-import { defineConfig } from 'vite'
-// import vue from '@vitejs/plugin-vue
-import { createVuePlugin as vue } from 'vite-plugin-vue2'
-import { viteCommonjs, esbuildCommonjs } from '@originjs/vite-plugin-commonjs'
+import { fileURLToPath, URL } from 'node:url'
 
-const path = require("path")
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue({ jsx: true }),
-    viteCommonjs()
-  ],
+  plugins: [vue()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src")
+      '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  },
-  build: {
-    commonjsOptions: {
-      transformMixedEsModules: true
-    }
-  },
-  // optimizeDeps: {
-  //   esbuildOptions: {
-  //     plugins: [
-  //       esbuildCommonjs(['quill','vue-quill','vue-quill-editor'])
-  //     ]
-  //   }
-  // }
+  }
 })
