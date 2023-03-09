@@ -92,6 +92,7 @@ const showHelper = ref(false)
       v-if="showHelper"
       v-model:show="showHelper"
       header-title="Welcome Page"
+      @hi="console.log('hi')"
     >
       <template #content>
         <!-- TODO: Change per route -->
@@ -111,13 +112,13 @@ const showHelper = ref(false)
           <strong>coursebuilderhelp@gmail.com</strong>
         </p>
       </template>
-      <template #actions>
+      <template #actions="{ close }">
         <div class="flex justify-end">
           <ActionButton
             text="OK"
             custom-bg="transparent"
             custom-bg-on-hover="bg-gray-100"
-            @click.prevent="showHelper = false"
+            @click.prevent="close"
           ></ActionButton>
         </div>
       </template>

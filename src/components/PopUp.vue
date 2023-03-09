@@ -78,7 +78,7 @@ function selfClose() {
             class="bg-black h-[1px] w-full mt-4 mb-2 mx-auto opacity-50"
           ></div>
 
-          <slot name="actions">
+          <slot name="actions" v-bind:close="close">
             <div class="flex justify-end space-x-2">
               <ActionButton
                 text="Cancel"
