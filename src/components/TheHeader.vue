@@ -21,13 +21,13 @@ const showHelper = ref(false)
 
 <template>
   <header
-    class="flex justify-between items-center px-4 md:px-8 py-6 max-w-[1600px] mx-auto bg-gray-100"
+    class="flex justify-between items-center px-4 md:px-8 py-6 mx-auto bg-gray-100"
   >
     <div class="md:hidden flex items-center cursor-pointer">
       <Bars4Icon class="h-5 w-5 mr-1" />
     </div>
 
-    <div class="hidden md:flex items-center text-center">
+    <div class="hidden md:flex items-center text-center text-xl	">
       <RouterLink
         to="/"
         class="rounded-full bg-black mr-3"

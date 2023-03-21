@@ -12,7 +12,7 @@ const showCourseSettings = ref(false)
     <!-- Hero Container -->
     <div
       id="home-hero-container"
-      class="bg-no-repeat bg-cover bg-center w-full max-w-[1600px] h-[450px] flex flex-col items-center justify-center"
+      class="bg-no-repeat bg-cover bg-center w-full h-[650px] flex flex-col items-center justify-center"
     >
       <img
         class="w-[250px] md:w-[400px]"
@@ -27,7 +27,7 @@ const showCourseSettings = ref(false)
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 bg-blue-600 text-white max-w-[1600px]">
+    <div class="grid grid-cols-1 md:grid-cols-3 bg-blue-600 text-white h-[250px]">
       <article class="text-center p-6">
         <h3 class="text-5xl font-semibold">1</h3>
         <p class="mt-10 font-semibold">DESIGN IN REAL TIME</p>

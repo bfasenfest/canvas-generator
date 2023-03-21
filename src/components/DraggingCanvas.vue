@@ -135,7 +135,7 @@ watch(localContent, () => {
       ref="canvasContainer"
       id="canvasContainer"
       style="
-        max-width: 1200px;
+        max-width: 1015px;
         margin-left: auto;
         margin-right: auto;
         position: relative;
@@ -162,7 +162,7 @@ watch(localContent, () => {
               v-model="localContent[index]"
               :item-key="`item-home-row#${index + 1}`"
               class="canvas__row relative"
-              style="display: grid; gap: 0.25rem; padding: 16px"
+              style="display: grid; gap: 0.25rem"
               :style="`grid-template-columns: repeat(${element.length}, minmax(0, 1fr))`"
               :class="{ 'bg-blue-300 border-2 border-dotted': dragHelp }"
             >
