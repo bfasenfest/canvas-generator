@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.16",
+    "@vueup/vue-quill": "^1.1.1",
+    "mitt": "^3.0.0",
     "nanoid": "^4.0.1",
     "pinia": "^2.0.32",
     "postcss": "^8.4.21",

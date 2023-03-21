@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, useAttrs } from "vue"
+import { ref, computed, onMounted, useAttrs, watch } from "vue"
 
 const props = defineProps({
   id: {
@@ -15,6 +15,10 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false,
+  },
+  value: {
+    required: false,
+    default: "",
   },
   invalidMessage: {
     type: String,
@@ -40,18 +44,16 @@ const props = defineProps({
 const emit = defineEmits(["update:value"])
 const attrs = useAttrs()
 
-const value = ref("")
+const localValue = ref("")
 const focus = ref(false)
 
 const showError = computed(
   () =>
-    !props.valid && props.invalidMessage && value.value && props.showFeedback
+    !props.valid && props.invalidMessage && localValue.value && props.showFeedback
 )
 
 onMounted(() => {
-  setTimeout(() => {
-    value.value = attrs.value
-  }, 50)
+  localValue.value = props.value
 })
 
 function setFocus(value) {
@@ -59,18 +61,25 @@ function setFocus(value) {
 }
 
 function updateValue() {
-  emit("update:value", value.value)
+  emit("update:value", localValue.value)
 }
+
+watch(
+  () => props.value,
+  (val) => {
+    if (val !== localValue.value) localValue.value = val
+  }
+)
 </script>
 
 <template>
   <div
     class="form-group transition-all duration-200"
-    :class="focus || value || placeholder ? 'mt-8' : 'mt-2'"
+    :class="focus || localValue || placeholder ? 'mt-8' : 'mt-2'"
   >
     <label
       class="form-label font-medium tracking-wide select-none"
-      :class="{ 'label-animated': focus || value || placeholder }"
+      :class="{ 'label-animated': focus || localValue || placeholder }"
       for="input-field"
     >
       {{ label }}
@@ -81,7 +90,7 @@ function updateValue() {
       :id="id"
       :title="tooltipHintText"
       :placeholder="placeholder"
-      v-model="value"
+      v-model="localValue"
       @input="updateValue"
       @focus="setFocus(true)"
       @blur="setFocus(false)"

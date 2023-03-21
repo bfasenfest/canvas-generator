@@ -39,6 +39,11 @@ function selfClose() {
   if (props.persistent) return
   close()
 }
+
+function confirm() {
+  close()
+  emit('confirm')
+}
 </script>
 
 <template>
@@ -88,7 +93,7 @@ function selfClose() {
               ></ActionButton>
               <ActionButton
                 :text="confirmActionButtonText"
-                @click.prevent="emit('confirm')"
+                @click.prevent="confirm"
               ></ActionButton>
             </div>
           </slot>

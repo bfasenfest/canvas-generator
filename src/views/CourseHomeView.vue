@@ -1,13 +1,22 @@
 <script setup>
 import { ref, onMounted, watch, markRaw } from "vue"
-import draggable from "vuedraggable"
+import { nanoid } from 'nanoid'
 
 import { useCourseHeadersStore } from "../stores/courseHeaders"
 
+import useEmitter from "../composables/useEmitter"
+
 import CustomInputText from "../components/CustomInputText.vue"
-import ActionButton from "../components/ActionButton.vue"
-import BannerImage from "../components/dynamicComponents/BannerImage.vue"
+// import ActionButton from "../components/ActionButton.vue"
 import CustomOrganizationSelect from "../components/CustomOrganizationSelect.vue"
+import DraggingCanvas from "../components/DraggingCanvas.vue"
+
+import BannerImage from "../components/dynamicComponents/BannerImage.vue"
+import InstructorInfo from "../components/dynamicComponents/InstructorInfo.vue"
+import MeetingTimes from "../components/dynamicComponents/MeetingTimes.vue"
+
+const courseHeadersStore = useCourseHeadersStore()
+const emitter = useEmitter()
 
 const headers = ["Course Info", "Instructors", "Meeting Times", "Banner"]
 const selectedHeader = ref("Course Info")
@@ -17,9 +26,11 @@ const instructorsData = ref({ name: "", email: "", date: "" })
 const meetingTimesData = ref({ dates: "", specialDiscussionDates: "" })
 const semester = ref("")
 
-const courseHeadersStore = useCourseHeadersStore()
+// Refresh UI Values
+const refreshSemesterInput = ref(false)
+const refreshMeetingTimesInput = ref(false)
+const refreshMeetingSpecialTimesInput = ref(false)
 
-const courseHomeCanvasContainer = ref(null)
 const content = ref([
   [
     [
@@ -32,36 +43,77 @@ const content = ref([
   [
     [
       {
-        name: markRaw(BannerImage),
-        dynamic: true,
-      },
+        html: `<img src="https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/campus.jpg" alt="Course Home Image" width="485" height="302">`,
+        id: nanoid(),
+        type: 'img',
+        edit: false
+      }
     ],
     [
       {
-        html: `
-          <h4
-            style="
-              font-weight: bold;
-              font-size: 1.125rem;
-              line-height: 1.75rem;
-              padding: 12px 12px 24px 12px;
-              background-color: #F5F5F5;
-            "
-          >
-            Welcome To
-          </h4>
-          <p style="padding: 4px;">
-            Congratulations on signing up for a self-paced course with unlimited attempts for graded assessments. These lessons are an excellent opportunity to improve your self-reflection, connect with classmates, and enhance your knowledge and aptitudes with material created by the faculty at Columbia University. To begin, click on the Modules Overview to review the modules presented in this course.
-          </p>
-        `,
+        html: `<h4 style="font-weight: bold;font-size: 1.125rem;line-height: 1.75rem;padding: 12px 12px 24px 12px;background-color: #F5F5F5;">Welcome To</h4><p style="padding: 4px;">Congratulations on signing up for a self-paced course with unlimited attempts for graded assessments. These lessons are an excellent opportunity to improve your self-reflection, connect with classmates, and enhance your knowledge and aptitudes with material created by the faculty at Columbia University. To begin, click on the Modules Overview to review the modules presented in this course.</p>`,
+        id: nanoid(),
+        edit: false,
+      },
+    ],
+  ],
+  [
+    [
+      {
+        name: markRaw(InstructorInfo),
+        dynamic: true,
+      },
+      {
+        name: markRaw(MeetingTimes),
+        dynamic: true,
       },
     ],
   ],
 ])
-// const dragging = ref(false)
-const dragHelp = ref(false)
 
 onMounted(() => {
+  emitter.on("refresh-semester", () => {
+    semester.value = courseHeadersStore.semester
+
+    if (selectedHeader.value === "Banner") {
+      // This is to re render semester input, bc it's value is binded by previous attrs
+      refreshSemesterInput.value = !refreshSemesterInput.value
+      setTimeout(
+        () => (refreshSemesterInput.value = !refreshSemesterInput.value),
+        10
+      )
+    }
+  })
+
+  emitter.on("refresh-meeting-date", () => {
+    meetingTimesData.value.dates = courseHeadersStore.meetingDate
+
+    if (selectedHeader.value === "Meeting Times") {
+      refreshMeetingTimesInput.value = !refreshMeetingTimesInput.value
+      setTimeout(
+        () =>
+          (refreshMeetingTimesInput.value = !refreshMeetingTimesInput.value),
+        10
+      )
+    }
+  })
+
+  emitter.on("refresh-special-meeting-date", () => {
+    meetingTimesData.value.specialDiscussionDates =
+      courseHeadersStore.meetingSpecialDiscussionDates
+
+    if (selectedHeader.value === "Meeting Times") {
+      refreshMeetingSpecialTimesInput.value =
+        !refreshMeetingSpecialTimesInput.value
+      setTimeout(
+        () =>
+          (refreshMeetingSpecialTimesInput.value =
+            !refreshMeetingSpecialTimesInput.value),
+        10
+      )
+    }
+  })
+
   courseInfoData.value = {
     title: courseHeadersStore.title,
     id: courseHeadersStore.id,
@@ -207,7 +259,8 @@ watch(semester, (val) => courseHeadersStore.setSemester(val))
       class="grid grid-cols-1 md:grid-cols-12 gap-2 px-4 max-w-[1200px] mx-auto mt-2"
     >
       <CustomInputText
-        class="col-span-1 md:col-span-5"
+        v-if="!refreshMeetingTimesInput"
+        class="col-span-1 md:col-span-6"
         id="meetingTimesDataDatesInput"
         label="Meeting Date"
         tooltip-hint-text="Meeting Date"
@@ -215,20 +268,21 @@ watch(semester, (val) => courseHeadersStore.setSemester(val))
         v-model:value="meetingTimesData.dates"
       />
       <CustomInputText
-        class="col-span-1 md:col-span-5"
+        v-if="!refreshMeetingSpecialTimesInput"
+        class="col-span-1 md:col-span-6"
         id="meetingTimesDataSpecialDiscussionDatesInput"
         label="Meeting Special Discussion Dates"
         tooltip-hint-text="Meeting Special Discussion Dates"
         placeholder="Input the special discussion dates here"
         v-model:value="meetingTimesData.specialDiscussionDates"
       />
-      <ActionButton
+      <!-- <ActionButton
         class="col-span-1 md:col-span-2 md:mt-8"
         text="Hide Meetings"
         custom-bg="bg-red-500"
         custom-bg-on-hover="bg-red-400"
         text-color="text-white"
-      />
+      /> -->
     </div>
 
     <!-- Banner Organization Input -->
@@ -243,6 +297,7 @@ watch(semester, (val) => courseHeadersStore.setSemester(val))
         @update:value="updateBanner"
       />
       <CustomInputText
+        v-if="!refreshSemesterInput"
         class="col-span-1 md:col-span-6"
         id="bannerDataSemesterInput"
         label="Semester"
@@ -253,59 +308,7 @@ watch(semester, (val) => courseHeadersStore.setSemester(val))
     </div>
     <!------ END OF HEADERS INPUTS ------>
 
-    <!-- TEMPLATE ACTIONS -->
-    <div class="flex justify-center mb-4">
-      <ActionButton
-        :text="`${ dragHelp ? 'Hide' : 'Show' } Drag Helpers`"
-        @click.prevent="dragHelp = !dragHelp"
-      />
-    </div>
-    <!-- END OF TEMPLATE ACTIONS -->
-
-    <div
-      ref="courseHomeCanvasContainer"
-      id="courseHomeCanvasContainer"
-      style="max-width: 1200px; margin-left: auto; margin-right: auto"
-    >
-      <draggable
-        id="homeContentDraggable"
-        v-model="content"
-        :item-key="`item-home-rows-content`"
-      >
-        <template #item="{ element, index }">
-          <draggable
-            group="rows"
-            v-model="content[index]"
-            :item-key="`item-home-row#${index + 1}`"
-            style="display: grid; gap: 0.25rem; padding: 16px"
-            :style="`grid-template-columns: repeat(${element.length}, minmax(0, 1fr))`"
-            :class="{ 'bg-blue-300 border-2 border-dotted': dragHelp }"
-          >
-            <template #item="col">
-              <draggable
-                group="cols"
-                v-model="content[index][col.index]"
-                :item-key="`item-home-col#${col.index}-of-row#${index + 1}`"
-                style="padding: 16px"
-                :class="{ 'bg-orange-300 border-2 border-black': dragHelp }"
-              >
-                <template #item="{ element }">
-                  <component
-                    v-if="element.dynamic"
-                    :is="element.name"
-                  ></component>
-                  <div
-                    v-else
-                    v-html="element.html"
-                    style="background-color: white"
-                  ></div>
-                </template>
-              </draggable>
-            </template>
-          </draggable>
-        </template>
-      </draggable>
-    </div>
+    <DraggingCanvas v-model:content="content" />
   </main>
 </template>
 
