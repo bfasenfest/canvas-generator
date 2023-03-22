@@ -1,19 +1,18 @@
 <script setup>
 import { ref, onMounted, watch, markRaw } from "vue"
-import { nanoid } from 'nanoid'
 
 import { useCourseHeadersStore } from "../stores/courseHeaders"
 
 import useEmitter from "../composables/useEmitter"
 
 import CustomInputText from "../components/CustomInputText.vue"
-// import ActionButton from "../components/ActionButton.vue"
 import CustomOrganizationSelect from "../components/CustomOrganizationSelect.vue"
 import DraggingCanvas from "../components/DraggingCanvas.vue"
 
 import BannerImage from "../components/dynamicComponents/BannerImage.vue"
 import InstructorInfo from "../components/dynamicComponents/InstructorInfo.vue"
 import MeetingTimes from "../components/dynamicComponents/MeetingTimes.vue"
+import CourseTitleBanner from "../components/dynamicComponents/CourseTitleBanner.vue"
 
 const courseHeadersStore = useCourseHeadersStore()
 const emitter = useEmitter()
@@ -27,6 +26,7 @@ const meetingTimesData = ref({ dates: "", specialDiscussionDates: "" })
 const semester = ref("")
 
 // Refresh UI Values
+const refreshCourseTitle = ref(false)
 const refreshSemesterInput = ref(false)
 const refreshMeetingTimesInput = ref(false)
 const refreshMeetingSpecialTimesInput = ref(false)
@@ -44,15 +44,17 @@ const content = ref([
     [
       {
         html: `<img src="https://s3.us-east-2.amazonaws.com/sipa-canvas/canvas-images/campus.jpg" alt="Course Home Image" width="485" height="302">`,
-        id: nanoid(),
         type: 'img',
         edit: false
       }
     ],
     [
       {
-        html: `<h4 style="font-weight: bold;font-size: 1.125rem;line-height: 1.75rem;padding: 12px 12px 24px 12px;background-color: #F5F5F5;">Welcome To</h4><p style="padding: 4px;">Congratulations on signing up for a self-paced course with unlimited attempts for graded assessments. These lessons are an excellent opportunity to improve your self-reflection, connect with classmates, and enhance your knowledge and aptitudes with material created by the faculty at Columbia University. To begin, click on the Modules Overview to review the modules presented in this course.</p>`,
-        id: nanoid(),
+        name: markRaw(CourseTitleBanner),
+        dynamic: true,
+      },
+      {
+        html: `<p style="padding: 4px;">Congratulations on signing up for a self-paced course with unlimited attempts for graded assessments. These lessons are an excellent opportunity to improve your self-reflection, connect with classmates, and enhance your knowledge and aptitudes with material created by the faculty at Columbia University. To begin, click on the Modules Overview to review the modules presented in this course.</p>`,
         edit: false,
       },
     ],
@@ -72,6 +74,19 @@ const content = ref([
 ])
 
 onMounted(() => {
+  emitter.on("refresh-title", () => {
+    courseInfoData.value.title = courseHeadersStore.title
+
+    if (selectedHeader.value === "Course Info") {
+      // This is to re render semester input, bc it's value is binded by previous attrs
+      refreshCourseTitle.value = !refreshCourseTitle.value
+      setTimeout(
+        () => (refreshCourseTitle.value = !refreshCourseTitle.value),
+        10
+      )
+    }
+  })
+
   emitter.on("refresh-semester", () => {
     semester.value = courseHeadersStore.semester
 
@@ -200,6 +215,7 @@ watch(semester, (val) => courseHeadersStore.setSemester(val))
       class="grid grid-cols-1 md:grid-cols-3 gap-2 px-4 max-w-[1200px] mx-auto mt-2"
     >
       <CustomInputText
+        v-if="!refreshCourseTitle"
         id="courseInfoTitleInput"
         label="Course Title"
         tooltip-hint-text="Course Title"

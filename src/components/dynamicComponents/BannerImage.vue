@@ -7,23 +7,41 @@ import useEmitter from "../../composables/useEmitter"
 const courseStore = useCourseHeadersStore()
 const emitter = useEmitter()
 
-const showInput = ref(false)
-const inputValue = ref(courseStore.semester)
+const showInputSemester = ref(false)
+const showInputTitle = ref(false)
+const inputValueSemester = ref(courseStore.semester)
+const inputValueTitle = ref(courseStore.title)
 
-function handleOpen() {
-  inputValue.value = courseStore.semester
-  showInput.value = true
+function handleOpenSemester() {
+  inputValueSemester.value = courseStore.semester
+  showInputSemester.value = true
 }
 
-function handleClose() {
-  inputValue.value = courseStore.semester
-  showInput.value = false
+function handleOpenTitle() {
+  inputValueTitle.value = courseStore.title
+  showInputTitle.value = true
+}
+
+function handleCloseSemester() {
+  inputValueSemester.value = courseStore.semester
+  showInputSemester.value = false
+}
+
+function handleCloseTitle() {
+  inputValueTitle.value = courseStore.title
+  showInputTitle.value = false
 }
 
 function updateSemester() {
-  courseStore.setSemester(inputValue.value)
-  showInput.value = false
+  courseStore.setSemester(inputValueSemester.value)
+  showInputSemester.value = false
   emitter.emit("refresh-semester")
+}
+
+function updateTitle() {
+  courseStore.setTitle(inputValueTitle.value)
+  showInputTitle.value = false
+  emitter.emit("refresh-title")
 }
 </script>
 
@@ -41,17 +59,60 @@ function updateSemester() {
       style="float: right; height: 100px; margin-top: 10px"
       alt="Organization Right Logo"
     />
-    <div v-if="showInput" class="mt-4 flex space-x-2" @keyup.esc="handleClose">
+
+    <div
+      v-if="showInputTitle"
+      class="mt-4 flex space-x-2"
+      @keyup.esc="handleCloseTitle"
+    >
       <button
         class="rounded-full bg-red-400 text-white h-8 w-8 p-1 my-auto"
-        @click.prevent="handleClose"
+        @click.prevent="handleCloseTitle"
       >
         <XMarkIcon />
       </button>
       <input
         autofocus
         type="text"
-        v-model="inputValue"
+        v-model="inputValueTitle"
+        class="rounded-lg px-2 bg-gray-100"
+      />
+      <button
+        class="rounded-lg bg-blue-500 text-white px-4 py-2"
+        @click.prevent="updateTitle"
+      >
+        Save
+      </button>
+    </div>
+    <p
+      v-else
+      style="
+        color: white;
+        font-weight: 500;
+        margin-top: 12px;
+        margin-left: 40px;
+        font-size: 18px;
+      "
+      @dblclick="handleOpenTitle"
+    >
+      {{ courseStore.title.toUpperCase() }}
+    </p>
+
+    <div
+      v-if="showInputSemester"
+      class="mt-4 flex space-x-2"
+      @keyup.esc="handleCloseSemester"
+    >
+      <button
+        class="rounded-full bg-red-400 text-white h-8 w-8 p-1 my-auto"
+        @click.prevent="handleCloseSemester"
+      >
+        <XMarkIcon />
+      </button>
+      <input
+        autofocus
+        type="text"
+        v-model="inputValueSemester"
         class="rounded-lg px-2 bg-gray-100"
       />
       <button
@@ -66,11 +127,11 @@ function updateSemester() {
       style="
         color: white;
         font-weight: 500;
-        margin-top: 12px;
+        margin-top: 2px;
         margin-left: 40px;
-        font-size: ;
+        font-size: 18px;
       "
-      @dblclick="handleOpen"
+      @dblclick="handleOpenSemester"
     >
       {{ courseStore.semester }}
     </p>
