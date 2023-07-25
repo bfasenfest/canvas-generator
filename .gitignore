@@ -11,3 +11,5 @@ static/files/CanvasCourseBuilderGuide.pdf
 
 .vscode/settings.json
 debug.log
+.nvmrc
+.python-version

@@ -3,6 +3,8 @@
 > A Vue.js based interface for generating canvas html pages
 
 ## Build Setup
+node version: `14.20.0`
+python version: `3.10.12`
 
 You must have node installed to set up a local version of the site. Then follow the first two steps below to install the necessary packages and then serve the code locally.
 
